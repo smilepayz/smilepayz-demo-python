@@ -66,7 +66,7 @@ def transaction_pay_in():
     # shippingAddress optional
     shipping_address = AddressReq("Jl. Pluit Karang Ayu 1 No.B1 Pluit", "jakarta",
                                   "14450", "82-3473233732", "Indonesia")
-    addition_req = TradeAdditionReq("YES000001", None, None, None);
+    addition_req = TradeAdditionReq("YES000001", None, None);
     # payInReq,  None fields are optional
     pay_in_req = TradePayoutReq(payment_method, None, None, cashAccount, merchant_order_no, purpose,
                                 None,
@@ -78,10 +78,8 @@ def transaction_pay_in():
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
     print("json_data_minify=", json_data_minify)
 
-    reference_id = Tool_Sign.generate_32bit_uuid()
-
     # build
-    string_to_sign = reference_id + "|" + timestamp + "|" + merchant_code + "|" + json_data_minify
+    string_to_sign =  timestamp + "|" + merchant_code + "|" + json_data_minify
     print("string_to_sign=", string_to_sign)
 
     # signature
@@ -95,7 +93,6 @@ def transaction_pay_in():
         'X-TIMESTAMP': timestamp,
         'X-SIGNATURE': signature,
         'X-PARTNER-ID': merchant_id,
-        'REFERENCE-ID': reference_id
 
     }
     # POST request
