@@ -1,9 +1,6 @@
 import json
 import time
-import uuid
-from datetime import datetime
 
-import pytz
 import requests
 
 import Tool_Sign
@@ -29,7 +26,7 @@ merchant_id = "20019"
 
 
 def transaction_pay_in():
-    print("=====> step3 : PayIn transaction")
+    print("=====>: Payout disbursement")
 
     # url
     path_url = "https://gateway-test.smilepayz.com/v2.0/disbursement/pay-out"
