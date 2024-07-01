@@ -59,26 +59,30 @@ def transaction_pay_in():
     # partner_id
     merchant_order_no = "T_" + str(time.time())
     purpose = "Purpose For Transaction from python SDK"
-    payment_method = "W_DANA"
+    # https://docs-test.smilepayz.com/en/reference/version1.0/data/paymentMethod_Brazil.html
+    # https://docs-test.smilepayz.com/en/reference/version1.0/data/paymentMethod_India.html
+    # https://docs-test.smilepayz.com/en/reference/version1.0/data/paymentMethod_Indonesia.html
+    # https://docs-test.smilepayz.com/en/reference/version1.0/data/paymentMethod_Thailand.html
+    payment_method = "W_DANA"  #for indonesia
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.IDR.name, 10000)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, None, None)
 
-    # payerReq
+    # payerReq optional
     payer_req = PayerReq("Jef-fer", "jef.gt@gmail.com", "82-3473829260",
                          "Jalan Pantai Mutiara TG6, Pluit, Jakarta", None)
-    # receiverReq
+    # receiverReq optional
     receiver_req = ReceiverReq("Viva in", "Viva@mir.com", "82-3473233732",
                                "Jl. Pluit Karang Ayu 1 No.B1 Pluit", None)
-    # itemDetailReq
+    # itemDetailReq optional
     item_detail_req = ItemDetailReq("mac A1", 1, 10000)
     item_detail_req_list = [item_detail_req]
 
-    # billingAddress
+    # billingAddress optional
     billing_address = AddressReq("Jl. Pluit Karang Ayu 1 No.B1 Pluit", "jakarta",
                                  "14450", "82-3473233732", "Indonesia")
-    # shippingAddress
+    # shippingAddress optional
     shipping_address = AddressReq("Jl. Pluit Karang Ayu 1 No.B1 Pluit", "jakarta",
                                   "14450", "82-3473233732", "Indonesia")
 
