@@ -26,7 +26,7 @@ merchant_id = "20019"
 
 
 def transaction_pay_in():
-    print("=====>: Payout disbursement")
+    print("=====>  Payout disbursement")
 
     # url
     path_url = "https://gateway-test.smilepayz.com/v2.0/disbursement/pay-out"
