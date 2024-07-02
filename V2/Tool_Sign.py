@@ -70,7 +70,7 @@ private_key_str = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3LbmfPhjGX
 publicKeyStr = """-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAty25nz4YxlyfmujVSskVhHwqbCn5fVBZzEZbTaLCb/u6nejlCt7e0PHyl/K8biQXlyy1qzmb46BpT98m774VEhih/gS3DdZNniW3Crk4b17ykL3e6V6JWPdYJBfFe/BV/kynoGbqW3o4tF1BlwgTckoaHGDOgr2opX9CMr+PXXJLSZouHawSn4I+ZeB1GPU2g7gmTq4bxWX2WcQStc5Ju9pNGS36kxphvDtrbAcp3Qkx9mjy0/aHUfPzuKn6Exvr1fR4ryCijiNodJGX0ATqlg+P6H8LvTzaEUcxoM30aRdxoZymt20VUqQlLgbR36LUHxcW42g5NLNyuQYUBOx8cwIDAQAB
 -----END PUBLIC KEY-----"""
-merchant_code_sandbox = "6a58a603e5043290f4097ee4a7745661b3656932d4eebc3106b5dddc3af6e053"
+merchant_secret = "6a58a603e5043290f4097ee4a7745661b3656932d4eebc3106b5dddc3af6e053"
 
 # minify demo
 money_req = MoneyReq(CurrencyEnum.IDR.name, 10000)
@@ -85,7 +85,7 @@ print("minifyStr: " + minifyStr)
 
 timestamp = get_formatted_datetime('Asia/Bangkok')
 
-sign_str_value = timestamp+ "|" + merchant_code_sandbox +"|" + minifyStr
+sign_str_value = timestamp+ "|" + merchant_secret +"|" + minifyStr
 print("sign_str_value: " + sign_str_value)
 
 signature = sha256RsaSignature(private_key_str, sign_str_value)
