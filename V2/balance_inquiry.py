@@ -17,8 +17,8 @@ def balance_inquiry():
     print("=====> balance_inquiry")
 
     # url
-    path_url = "https://gateway-test.smilepayz.com/v2.0/inquiry-balance"
-    path_url_sandbox = "https://sandbox-gateway-test.smilepayz.com/v2.0/inquiry-balance"
+    path_url = "https://gateway.smilepayz.com/v2.0/inquiry-balance"
+    path_url_sandbox = "https://sandbox-gateway.smilepayz.com/v2.0/inquiry-balance"
 
     # transaction time
     timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')

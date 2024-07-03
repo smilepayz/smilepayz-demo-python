@@ -29,8 +29,8 @@ def transaction_pay_in():
     print("=====>  Payout disbursement")
 
     # url
-    path_url = "https://gateway-test.smilepayz.com/v2.0/disbursement/pay-out"
-    path_url_sandbox = "https://sandbox-gateway-test.smilepayz.com/v2.0/disbursement/pay-out"
+    path_url = "https://gateway.smilepayz.com/v2.0/disbursement/pay-out"
+    path_url_sandbox = "https://sandbox-gateway.smilepayz.com/v2.0/disbursement/pay-out"
 
     # transaction time
     timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
