@@ -2,23 +2,21 @@ import json
 
 import requests
 
-import Tool_Sign
-from bean.BalanceInquiryReq import BalanceInquiryReq
+from v2 import Tool_Sign
+from bean.OrderStatusInquiry import OrderStatusInquiry
 from bean.Constants import Constants
 
 
 def balance_inquiry():
-    print("=====> balance_inquiry")
-
     # production
     # merchant_id = Constants.merchantId
     # merchant_secret = Constants.merchantSecret
-    # request_path = Constants.baseUrl + "/v2.0/inquiry-balance"
+    # request_path = Constants.baseUrl + "/v2.0/inquiry-status"
 
     # sandbox
     merchant_id = Constants.merchantIdSandBox
     merchant_secret = Constants.merchantSecretSandBox
-    request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-balance"
+    request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-status"
 
 
     # transaction time
@@ -26,20 +24,20 @@ def balance_inquiry():
     print("timestamp:" + timestamp)
 
     # payInReq,  None fields are optional
-    balance_inquiry = BalanceInquiryReq(Tool_Sign.generate_32bit_uuid(), "21220030202403071031", ["balance"])
+    order_status_inquiry = OrderStatusInquiry("2", "112200182402261848252600","D_1708948105016")
 
     # jsonStr by json then minify
-    json_data_minify = json.dumps(balance_inquiry, default=lambda o: o.__dict__, separators=(',', ':'))
+    json_data_minify = json.dumps(order_status_inquiry, default=lambda o: o.__dict__, separators=(',', ':'))
     print("json_data_minify=", json_data_minify)
 
     # build
     string_to_sign = timestamp + "|" + merchant_secret + "|" + json_data_minify
     print("string_to_sign=", string_to_sign)
-    print("request_path=", request_path)
 
     # signature
     signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
     print("signature=", signature)
+    print("request_path=", request_path)
 
     # post
     # header
@@ -54,7 +52,7 @@ def balance_inquiry():
     response = requests.post(request_path, data=json_data_minify, headers=headers)
     # Get response result
     result = response.json()
-    print(result)
+    print("response result=", result)
 
 
 # run

@@ -8,7 +8,7 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/V2" />
+        <option value="$MODULE_DIR$/v2" />
       </list>
     </option>
   </component>

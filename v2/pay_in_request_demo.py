@@ -1,40 +1,41 @@
 import json
-import time
 
 import requests
 
-import Tool_Sign
 from bean.AddressReq import AddressReq
 from bean.AreaEnum import AreaEnum
 from bean.AreaEnum import CurrencyEnum
+from bean.Constants import Constants
 from bean.ItemDetailReq import ItemDetailReq
 from bean.MerchantReq import MerchantReq
 from bean.MoneyReq import MoneyReq
 from bean.PayerReq import PayerReq
 from bean.ReceiverReq import ReceiverReq
 from bean.TradePayInReq import TradePayInReq
-from bean.Constants import Constants
+from v2 import Tool_Sign
 
 
-def transaction_pay_in():
+def transaction_pay_in(env="sandbox"):
     print("=====> PayIn transaction")
+    if env == "sandbox":
+         # sandbox
+        merchant_id = Constants.merchantIdSandBox
+        merchant_secret = Constants.merchantSecretSandBox
+        request_path = Constants.baseUrlSandbox + "/v2.0/transaction/pay-in"
+    if env == "production":
+        # production
+        merchant_id = Constants.merchantId
+        merchant_secret = Constants.merchantSecret
+        request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
-    # production
-    merchant_id = Constants.merchantId
-    merchant_secret = Constants.merchantSecret
-    request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
-    # sandbox
-    # merchant_id = Constants.merchantIdSandBox
-    # merchant_secret = Constants.merchantSecretSandBox
-    # request_path = Constants.baseUrlSandbox + "/v2.0/transaction/pay-in"
 
     # transaction time
     timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
     print("timestamp:" + timestamp)
 
     # partner_id
-    merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
+    merchant_order_no = merchant_id.replace("sandbox-", "S") + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
     payment_method = "W_DANA"  #for indonesia
@@ -93,8 +94,8 @@ def transaction_pay_in():
     response = requests.post(request_path, data=json_data_minify, headers=headers)
     # Get response result
     result = response.json()
-    print(result)
+    print("response result =", result)
 
 
 # run
-transaction_pay_in()
+transaction_pay_in("production")

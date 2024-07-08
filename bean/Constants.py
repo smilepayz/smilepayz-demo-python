@@ -9,7 +9,7 @@ class Constants:
 
     baseUrl = "https://gateway.smilepayz.com";
 
-    merchantId = "20019";
+    merchantId = "20019"
 
     merchantIdSandBox = "sandbox-20019";
 

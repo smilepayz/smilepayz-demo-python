@@ -1,9 +1,7 @@
 
 class BalanceInquiryReq:
 
-    def __init__(self, partnerReferenceNo, accountNo,balanceTypes):
-        if partnerReferenceNo is not None:
-            self.partnerReferenceNo = partnerReferenceNo
+    def __init__(self, accountNo,balanceTypes):
         if accountNo is not None:
             self.accountNo = accountNo
         if balanceTypes is not None:
@@ -11,4 +9,4 @@ class BalanceInquiryReq:
 
 
     def print_info(self):
-        print(f"{self.partnerReferenceNo} {self.accountNo} {self.balanceTypes}")
+        print(f" {self.accountNo} {self.balanceTypes}")
