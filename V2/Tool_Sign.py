@@ -35,12 +35,14 @@ def checkSha256RsaSignature(content, signature, publicKeyStr):
         print("error:" + str(e))  # Convert the exception object to a string and print it
         return False
 
+
 def generate_32bit_uuid():
     # Generate a UUID
     unique_id = uuid.uuid4()
     # Convert the UUID to a 32-character string (remove dashes)
     uuid_str = str(unique_id).replace('-', '')
     return uuid_str
+
 
 # Generating Signatures with Crypto
 def sha256RsaSignature(privateKey, message):
@@ -80,16 +82,18 @@ pay_in_req = TradePayInReq("BCA", None, None, None, "order-1234566789", "minify 
                            None,
                            None, None, None, money_req, merchant_req, None,
                            None, AreaEnum.INDONESIA.code)
-minifyStr = minify(pay_in_req)
-print("minifyStr: " + minifyStr)
 
-timestamp = get_formatted_datetime('Asia/Bangkok')
+if __name__ == '__main__':
+    minifyStr = minify(pay_in_req)
+    print("minifyStr: " + minifyStr)
 
-sign_str_value = timestamp+ "|" + merchant_secret +"|" + minifyStr
-print("sign_str_value: " + sign_str_value)
+    timestamp = get_formatted_datetime('Asia/Bangkok')
 
-signature = sha256RsaSignature(private_key_str, sign_str_value)
-print("signature", signature)
+    sign_str_value = timestamp + "|" + merchant_secret + "|" + minifyStr
+    print("sign_str_value: " + sign_str_value)
 
-check_result = checkSha256RsaSignature(sign_str_value, signature, publicKeyStr)
-print("check_result", check_result)
+    signature = sha256RsaSignature(private_key_str, sign_str_value)
+    print("signature", signature)
+
+    check_result = checkSha256RsaSignature(sign_str_value, signature, publicKeyStr)
+    print("check_result", check_result)
