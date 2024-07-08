@@ -5,9 +5,9 @@ class Constants:
 
     publicKeyStr = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAty25nz4YxlyfmujVSskVhHwqbCn5fVBZzEZbTaLCb/u6nejlCt7e0PHyl/K8biQXlyy1qzmb46BpT98m774VEhih/gS3DdZNniW3Crk4b17ykL3e6V6JWPdYJBfFe/BV/kynoGbqW3o4tF1BlwgTckoaHGDOgr2opX9CMr+PXXJLSZouHawSn4I+ZeB1GPU2g7gmTq4bxWX2WcQStc5Ju9pNGS36kxphvDtrbAcp3Qkx9mjy0/aHUfPzuKn6Exvr1fR4ryCijiNodJGX0ATqlg+P6H8LvTzaEUcxoM30aRdxoZymt20VUqQlLgbR36LUHxcW42g5NLNyuQYUBOx8cwIDAQAB";
 
-    baseUrlSandbox = "https://sandbox-gateway-test.smilepayz.com";
+    baseUrlSandbox = "https://sandbox-gateway.smilepayz.com";
 
-    baseUrl = "https://gateway-test.smilepayz.com";
+    baseUrl = "https://gateway.smilepayz.com";
 
     merchantId = "20019";
 
