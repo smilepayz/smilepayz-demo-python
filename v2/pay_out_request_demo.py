@@ -18,7 +18,7 @@ from bean.Constants import Constants
 
 
 def pay_out_request_demo(env="sandbox"):
-    if env == "pro":
+    if env == "production":
         # production
         merchant_id = Constants.merchantId
         merchant_secret = Constants.merchantSecret

@@ -7,16 +7,18 @@ from bean.OrderStatusInquiry import OrderStatusInquiry
 from bean.Constants import Constants
 
 
-def balance_inquiry():
-    # production
-    # merchant_id = Constants.merchantId
-    # merchant_secret = Constants.merchantSecret
-    # request_path = Constants.baseUrl + "/v2.0/inquiry-status"
+def balance_inquiry(env="production"):
+    if env == "production":
+        # production
+        merchant_id = Constants.merchantId
+        merchant_secret = Constants.merchantSecret
+        request_path = Constants.baseUrl + "/v2.0/inquiry-status"
 
-    # sandbox
-    merchant_id = Constants.merchantIdSandBox
-    merchant_secret = Constants.merchantSecretSandBox
-    request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-status"
+    if env == "sandbox":
+        # sandbox
+        merchant_id = Constants.merchantIdSandBox
+        merchant_secret = Constants.merchantSecretSandBox
+        request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-status"
 
 
     # transaction time
@@ -56,4 +58,4 @@ def balance_inquiry():
 
 
 # run
-balance_inquiry()
+balance_inquiry("production")
