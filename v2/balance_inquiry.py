@@ -8,6 +8,7 @@ from v2 import Tool_Sign
 
 
 def balance_inquiry(env="sandbox"):
+    global merchant_id, request_path, merchant_secret
     print("=====> balance_inquiry")
     if env == "sandbox":
         merchant_id = Constants.merchantIdSandBox

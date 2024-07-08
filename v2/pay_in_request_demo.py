@@ -16,6 +16,7 @@ from v2 import Tool_Sign
 
 
 def transaction_pay_in(env="sandbox"):
+    global merchant_id, merchant_secret, request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
          # sandbox

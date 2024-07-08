@@ -18,6 +18,7 @@ from bean.Constants import Constants
 
 
 def pay_out_request_demo(env="sandbox"):
+    global merchant_id, merchant_secret, request_path
     if env == "production":
         # production
         merchant_id = Constants.merchantId

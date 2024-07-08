@@ -8,6 +8,7 @@ from bean.Constants import Constants
 
 
 def balance_inquiry(env="production"):
+    global merchant_secret, request_path, merchant_id
     if env == "production":
         # production
         merchant_id = Constants.merchantId
