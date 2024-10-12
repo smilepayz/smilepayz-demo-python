@@ -27,7 +27,7 @@ def balance_inquiry(env="sandbox"):
     print("timestamp:" + timestamp)
 
     # payInReq,  None fields are optional
-    balance_inquiry_req = BalanceInquiryReq("21220030202403071031", ["BALANCE"])
+    balance_inquiry_req = BalanceInquiryReq("your account no", ["BALANCE"])
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(balance_inquiry_req, default=lambda o: o.__dict__, separators=(',', ':'))

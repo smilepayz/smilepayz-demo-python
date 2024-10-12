@@ -27,7 +27,7 @@ def balance_inquiry(env="production"):
     print("timestamp:" + timestamp)
 
     # payInReq,  None fields are optional
-    order_status_inquiry = OrderStatusInquiry("2", "112200182402261848252600","D_1708948105016")
+    order_status_inquiry = OrderStatusInquiry("2", "platform tradeNo no","your order no")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(order_status_inquiry, default=lambda o: o.__dict__, separators=(',', ':'))

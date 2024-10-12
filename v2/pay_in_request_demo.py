@@ -12,6 +12,7 @@ from bean.MoneyReq import MoneyReq
 from bean.PayerReq import PayerReq
 from bean.ReceiverReq import ReceiverReq
 from bean.TradePayInReq import TradePayInReq
+from bean.TradeAdditionReq import  TradeAdditionReq
 from v2 import Tool_Sign
 
 
@@ -39,35 +40,40 @@ def transaction_pay_in(env="sandbox"):
     merchant_order_no = merchant_id.replace("sandbox-", "S") + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    payment_method = "W_DANA"  #for indonesia
+    # demo for INDONESIA, replace CurrencyEnum,payment_method to you what need
+    payment_method = "W_DANA"
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.IDR.name, 10000)
+
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, None, None)
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
+
+    addition_param = TradeAdditionReq("","","payer account no")
 
     # payerReq optional
-    payer_req = PayerReq("Jef-fer", "jef.gt@gmail.com", "82-3473829260",
-                         "Jalan Pantai Mutiara TG6, Pluit, Jakarta", None)
+    payer_req = PayerReq("abc", "abc.gt@gmail.com", "82-3473829260",
+                         "abc, Jakarta", None)
     # receiverReq optional
-    receiver_req = ReceiverReq("Viva in", "Viva@mir.com", "82-3473233732",
-                               "Jl. Pluit Karang Ayu 1 No.B1 Pluit", None)
+    receiver_req = ReceiverReq("abc", "abc@mir.com", "82-3473233732",
+                               "abc No.B1 Pluit", None)
     # itemDetailReq optional
     item_detail_req = ItemDetailReq("mac A1", 1, 10000)
     item_detail_req_list = [item_detail_req]
 
     # billingAddress optional
-    billing_address = AddressReq("Jl. Pluit Karang Ayu 1 No.B1 Pluit", "jakarta",
-                                 "14450", "82-3473233732", "Indonesia")
+    billing_address = AddressReq("abc dasssss", "jakarta",
+                                 "14450", "82-1234567789", "Indonesia")
     # shippingAddress optional
-    shipping_address = AddressReq("Jl. Pluit Karang Ayu 1 No.B1 Pluit", "jakarta",
-                                  "14450", "82-3473233732", "Indonesia")
+    shipping_address = AddressReq(" No.B1 Pluit", "jakarta",
+                                  "14450", "82-1234567789", "Indonesia")
 
-    # payInReq,  None fields are optional
+
+    # payInReq demo for INDONESIA, replace AreaEnum to you what need
     pay_in_req = TradePayInReq(payment_method, None, None, None, merchant_order_no[:32], purpose,
                                None,
-                               None,
-                               None, None, None, money_req, merchant_req, None,
-                               None, AreaEnum.INDONESIA.code)
+                               addition_param,
+                               None, None, None, money_req, merchant_req, "your notify url",
+                               "redirect utl", AreaEnum.INDONESIA.code)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
