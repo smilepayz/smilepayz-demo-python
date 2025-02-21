@@ -2,18 +2,14 @@ import json
 
 import requests
 
-from v2 import Tool_Sign
-from v2.brazil.bean.AddressReq import AddressReq
-from v2.brazil.bean.AreaEnum import AreaEnum
-from v2.brazil.bean.AreaEnum import CurrencyEnum
-from v2.brazil.bean.ItemDetailReq import ItemDetailReq
-from v2.brazil.bean.MerchantReq import MerchantReq
-from v2.brazil.bean.MoneyReq import MoneyReq
-from v2.brazil.bean.PayerReq import PayerReq
-from v2.brazil.bean.ReceiverReq import ReceiverReq
-from v2.brazil.bean.TradeAdditionReq import TradeAdditionReq
-from v2.brazil.bean.TradePayoutReq import TradePayoutReq
-from v2.brazil.bean.Constants import Constants
+from v2.india import Tool_Sign
+from v2.india.bean.AreaEnum import AreaEnum
+from v2.india.bean.AreaEnum import CurrencyEnum
+from v2.india.bean.Constants import Constants
+from v2.india.bean.MerchantReq import MerchantReq
+from v2.india.bean.MoneyReq import MoneyReq
+from v2.india.bean.ReceiverReq import ReceiverReq
+from v2.india.bean.TradePayoutReq import TradePayoutReq
 
 
 def pay_out_request_demo(env="sandbox"):
@@ -36,10 +32,12 @@ def pay_out_request_demo(env="sandbox"):
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    payment_method = "CPF"
+    payment_method = "YES"
     cashAccount = "12345678909"
+    ifscCode = "YES001022222"
+
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.BRL.name, 200)
+    money_req = MoneyReq(CurrencyEnum.INR.name, 200)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
@@ -48,11 +46,12 @@ def pay_out_request_demo(env="sandbox"):
                                "12345678909")
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cashAccount, merchant_order_no[:32], purpose,
+    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cashAccount, ifscCode, merchant_order_no[:32],
+                                purpose,
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "notify url",
-                                None, AreaEnum.BRAZIL.code)
+                                None, AreaEnum.INDIA.code)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

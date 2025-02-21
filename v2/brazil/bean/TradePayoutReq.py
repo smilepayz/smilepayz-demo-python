@@ -2,7 +2,7 @@ from bean.TradeReq import TradeReq
 
 
 class TradePayoutReq(TradeReq):
-    def __init__(self, paymentMethod, payer, receiver, cashAccount, orderNo, purpose, productDetail, additionalParam,
+    def __init__(self, paymentMethod, payer, receiver,cashAccount, orderNo, purpose, productDetail, additionalParam,
                  itemDetailList, billingAddress, shippingAddress, money, merchant, callbackUrl, redirectUrl,area):
         super().__init__(orderNo, purpose, productDetail, additionalParam, itemDetailList, billingAddress,
                          shippingAddress, money, merchant, callbackUrl, redirectUrl,area)

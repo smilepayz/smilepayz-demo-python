@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from v2 import Tool_Sign
+from v2.brazil import Tool_Sign
 from v2.brazil.bean.AreaEnum import AreaEnum
 from v2.brazil.bean.AreaEnum import CurrencyEnum
 from v2.brazil.bean.Constants import Constants
