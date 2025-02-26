@@ -2,23 +2,19 @@ import json
 
 import requests
 
-from v2.brazil import Tool_Sign
-from v2.brazil.bean.OrderStatusInquiry import OrderStatusInquiry
-from v2.brazil.bean.Constants import Constants
+from v2.thailand import Tool_Sign
+from v2.thailand.bean.OrderStatusInquiry import OrderStatusInquiry
+from v2.thailand.bean.Constants import Constants
 
 
-def balance_inquiry(env="production"):
-    global merchant_secret, request_path, merchant_id
+def balance_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no):
+    global request_path
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/inquiry-status"
 
     if env == "sandbox":
         # sandbox
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-status"
 
 
@@ -27,7 +23,7 @@ def balance_inquiry(env="production"):
     print("timestamp:" + timestamp)
 
     # payInReq,  None fields are optional
-    order_status_inquiry = OrderStatusInquiry("2", "platform tradeNo no","your order no")
+    order_status_inquiry = OrderStatusInquiry(trade_type, trade_no,order_no)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(order_status_inquiry, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -38,7 +34,7 @@ def balance_inquiry(env="production"):
     print("string_to_sign=", string_to_sign)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
     print("request_path=", request_path)
 
@@ -59,4 +55,4 @@ def balance_inquiry(env="production"):
 
 
 # run
-balance_inquiry("production")
+balance_inquiry("production","","","","","","")

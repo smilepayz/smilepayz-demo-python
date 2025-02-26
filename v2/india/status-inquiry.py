@@ -2,9 +2,9 @@ import json
 
 import requests
 
-from v2.brazil import Tool_Sign
-from v2.brazil.bean.Constants import Constants
-from v2.brazil.bean.OrderStatusInquiry import OrderStatusInquiry
+from v2.india import Tool_Sign
+from v2.india.bean.Constants import Constants
+from v2.india.bean.OrderStatusInquiry import OrderStatusInquiry
 
 
 def balance_inquiry(env, merchant_id, merchant_secret, private_key, trade_type, trade_no, order_no):

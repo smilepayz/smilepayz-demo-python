@@ -2,9 +2,9 @@ import json
 
 import requests
 
-from v2.brazil.bean.BalanceInquiryReq import BalanceInquiryReq
-from v2.brazil.bean.Constants import Constants
-from v2.brazil import Tool_Sign
+from v2.indonesia.bean.BalanceInquiryReq import BalanceInquiryReq
+from v2.indonesia.bean.Constants import Constants
+from v2.indonesia import Tool_Sign
 
 
 def balance_inquiry(env,merchant_id,merchant_secret,private_key,account_no):

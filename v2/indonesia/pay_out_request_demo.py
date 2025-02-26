@@ -2,13 +2,13 @@ import json
 
 import requests
 
-from v2 import Tool_Sign
-from v2.brazil.bean.AreaEnum import AreaEnum
-from v2.brazil.bean.AreaEnum import CurrencyEnum
-from v2.brazil.bean.Constants import Constants
-from v2.brazil.bean.MerchantReq import MerchantReq
-from v2.brazil.bean.MoneyReq import MoneyReq
-from v2.brazil.bean.TradePayoutReq import TradePayoutReq
+from v2.indonesia import Tool_Sign
+from v2.indonesia.bean.AreaEnum import AreaEnum
+from v2.indonesia.bean.AreaEnum import CurrencyEnum
+from v2.indonesia.bean.Constants import Constants
+from v2.indonesia.bean.MerchantReq import MerchantReq
+from v2.indonesia.bean.MoneyReq import MoneyReq
+from v2.indonesia.bean.TradePayoutReq import TradePayoutReq
 
 
 def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account):
