@@ -12,8 +12,9 @@ from v2.india.bean.ReceiverReq import ReceiverReq
 from v2.india.bean.TradePayoutReq import TradePayoutReq
 
 
-def pay_out_request_demo(env="sandbox"):
-    global merchant_id, merchant_secret, request_path
+def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account,
+                         ifsc_code):
+    global request_path
     if env == "production":
         # production
         merchant_id = Constants.merchantId
@@ -32,21 +33,16 @@ def pay_out_request_demo(env="sandbox"):
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    payment_method = "YES"
-    cashAccount = "12345678909"
-    ifscCode = "YES001022222"
-
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.INR.name, 200)
+    money_req = MoneyReq(CurrencyEnum.INR.name, amount)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
     # receiverReq
-    receiver_req = ReceiverReq("abc", None, None,
-                               "12345678909")
+    receiver_req = ReceiverReq(None, None, None, None)
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cashAccount, ifscCode, merchant_order_no[:32],
+    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account, ifsc_code, merchant_order_no[:32],
                                 purpose,
                                 None,
                                 None,
@@ -63,7 +59,7 @@ def pay_out_request_demo(env="sandbox"):
     print("request_path=", request_path)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
 
     # post
@@ -83,4 +79,4 @@ def pay_out_request_demo(env="sandbox"):
 
 
 # run
-pay_out_request_demo("sandbox")
+pay_out_request_demo("sandbox", "", "", "", "", "", "", "")

@@ -12,17 +12,14 @@ from v2.brazil.bean.ReceiverReq import ReceiverReq
 from v2.brazil.bean.TradePayoutReq import TradePayoutReq
 
 
-def pay_out_request_demo(env="sandbox"):
-    global merchant_id, merchant_secret, request_path
+def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account,
+                         tax_number):
+    global request_path
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/disbursement/pay-out"
     if env == "sandbox":
         # sandbox
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
@@ -32,19 +29,17 @@ def pay_out_request_demo(env="sandbox"):
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    payment_method = "CPF"
-    cashAccount = "12345678909"
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.BRL.name, 200)
+    money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
     # receiverReq
     receiver_req = ReceiverReq("abc", None, None,
-                               "12345678909")
+                               tax_number)
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cashAccount, merchant_order_no[:32], purpose,
+    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account, merchant_order_no[:32], purpose,
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "notify url",
@@ -60,7 +55,7 @@ def pay_out_request_demo(env="sandbox"):
     print("request_path=", request_path)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
 
     # post
@@ -80,4 +75,5 @@ def pay_out_request_demo(env="sandbox"):
 
 
 # run
-pay_out_request_demo("sandbox")
+pay_out_request_demo("sandbox", "", "", "", "CPF",
+                     100, "", "12345678909")

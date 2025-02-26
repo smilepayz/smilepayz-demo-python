@@ -12,18 +12,14 @@ from v2.brazil.bean.PayerReq import PayerReq
 from v2.brazil.bean.TradePayInReq import TradePayInReq
 
 
-def transaction_pay_in(env="sandbox"):
-    global merchant_id, merchant_secret, request_path
+def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, pix_account):
+    global request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
-         # sandbox
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
+        # sandbox
         request_path = Constants.baseUrlSandbox + "/v2.0/transaction/pay-in"
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
@@ -34,16 +30,14 @@ def transaction_pay_in(env="sandbox"):
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    # demo for INDONESIA, replace CurrencyEnum,payment_method to you what need
-    payment_method = "PIX"
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.BRL.name, 10000)
+    money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
 
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
     # payerReq
-    payer_req = PayerReq(None, None, None,"12345678900")
+    payer_req = PayerReq(None, None, None, pix_account)
 
     pay_in_req = TradePayInReq(payment_method, payer_req, None, None, merchant_order_no[:32], purpose,
                                None,
@@ -61,7 +55,7 @@ def transaction_pay_in(env="sandbox"):
     print("request_path=", request_path)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
 
     # post
@@ -81,4 +75,4 @@ def transaction_pay_in(env="sandbox"):
 
 
 # run
-transaction_pay_in("production")
+transaction_pay_in("production", "", "", "", "PIX", 100, "12345678909")
