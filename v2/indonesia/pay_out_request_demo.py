@@ -8,21 +8,16 @@ from v2.brazil.bean.AreaEnum import CurrencyEnum
 from v2.brazil.bean.Constants import Constants
 from v2.brazil.bean.MerchantReq import MerchantReq
 from v2.brazil.bean.MoneyReq import MoneyReq
-from v2.brazil.bean.ReceiverReq import ReceiverReq
 from v2.brazil.bean.TradePayoutReq import TradePayoutReq
 
 
-def pay_out_request_demo(env="sandbox"):
-    global merchant_id, merchant_secret, request_path
+def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account):
+    global request_path
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/disbursement/pay-out"
     if env == "sandbox":
         # sandbox
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
@@ -32,20 +27,17 @@ def pay_out_request_demo(env="sandbox"):
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
-    payment_method = "YES"
-    cashAccount = "12345678909"
-    ifscCode = "YES001022222"
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.INR.name, 200)
+    money_req = MoneyReq(CurrencyEnum.IDR.name, amount)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, None, ifscCode, cashAccount, merchant_order_no[:32], purpose,
+    pay_in_req = TradePayoutReq(payment_method, None, None, cash_account, merchant_order_no[:32], purpose,
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "notify url",
-                                None, AreaEnum.INDIA.code)
+                                None, AreaEnum.INDONESIA.code)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -57,7 +49,7 @@ def pay_out_request_demo(env="sandbox"):
     print("request_path=", request_path)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(Constants.privateKeyStr, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
 
     # post
@@ -77,4 +69,4 @@ def pay_out_request_demo(env="sandbox"):
 
 
 # run
-pay_out_request_demo("sandbox")
+pay_out_request_demo("sandbox", "", "", "", "", "", "")
