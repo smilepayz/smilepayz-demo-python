@@ -8,10 +8,11 @@ from v2.india.bean.AreaEnum import CurrencyEnum
 from v2.india.bean.Constants import Constants
 from v2.india.bean.MerchantReq import MerchantReq
 from v2.india.bean.MoneyReq import MoneyReq
+from v2.india.bean.PayerReq import PayerReq
 from v2.india.bean.TradePayInReq import TradePayInReq
 
 
-def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_method,amount):
+def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_method,amount,email):
     global request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
@@ -33,10 +34,12 @@ def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_metho
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.INR.name, amount)
 
+    payer_req = PayerReq(None,email,None)
+
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "", None)
 
-    pay_in_req = TradePayInReq(payment_method, None, None, None, merchant_order_no[:32], purpose,
+    pay_in_req = TradePayInReq(payment_method, payer_req, None, None, merchant_order_no[:32], purpose,
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "your notify url",
@@ -72,4 +75,4 @@ def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_metho
 
 
 # run
-transaction_pay_in("production","","","","P2P",100)
+transaction_pay_in("production","","","","P2P",100,"")
