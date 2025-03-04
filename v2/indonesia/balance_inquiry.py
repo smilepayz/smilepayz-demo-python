@@ -55,4 +55,9 @@ def balance_inquiry(env,merchant_id,merchant_secret,private_key,account_no):
 
 
 # run
-balance_inquiry("sandbox","","","","")
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+account_no = ""
+balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no)

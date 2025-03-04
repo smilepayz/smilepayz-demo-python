@@ -73,4 +73,11 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-pay_out_request_demo("sandbox", "", "", "", "", "", "")
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+payment_method = ""
+amount = 100
+cash_account = ""
+pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)

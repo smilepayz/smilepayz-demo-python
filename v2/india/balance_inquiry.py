@@ -2,12 +2,12 @@ import json
 
 import requests
 
+from v2.india import Tool_Sign
 from v2.india.bean.BalanceInquiryReq import BalanceInquiryReq
 from v2.india.bean.Constants import Constants
-from v2.india import Tool_Sign
 
 
-def balance_inquiry(env,merchant_id,merchant_secret,private_key,account_no):
+def balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no):
     global request_path
     print("=====> balance_inquiry")
     if env == "sandbox":
@@ -55,4 +55,9 @@ def balance_inquiry(env,merchant_id,merchant_secret,private_key,account_no):
 
 
 # run
-balance_inquiry("sandbox","","","","")
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+account_no = ""
+balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no)

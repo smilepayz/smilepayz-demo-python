@@ -12,7 +12,7 @@ from v2.india.bean.PayerReq import PayerReq
 from v2.india.bean.TradePayInReq import TradePayInReq
 
 
-def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_method,amount,email):
+def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, email):
     global request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
@@ -34,7 +34,7 @@ def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_metho
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.INR.name, amount)
 
-    payer_req = PayerReq(None,email,None)
+    payer_req = PayerReq(None, email, None)
 
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "", None)
@@ -75,4 +75,11 @@ def transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_metho
 
 
 # run
-transaction_pay_in("production","","","","P2P",100,"")
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+payment_method = ""
+amount = 100
+email = ""
+transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, email)

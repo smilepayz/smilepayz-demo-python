@@ -7,7 +7,7 @@ from v2.mexico.bean.OrderStatusInquiry import OrderStatusInquiry
 from v2.mexico.bean.Constants import Constants
 
 
-def balance_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no):
+def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no):
     global  request_path
     if env == "production":
         # production
@@ -55,4 +55,11 @@ def balance_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade
 
 
 # run
-balance_inquiry("production","","","","","","")
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+trade_type = ""
+trade_no = ""
+order_no = ""
+status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no)

@@ -75,4 +75,10 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
 
 
 # run
-transaction_pay_in("production", "", "", "", "W_OVO", 10000)
+env = ""
+merchant_id = ""
+merchant_secret = ""
+private_key = ""
+payment_method = ""
+amount = 100
+transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount)
