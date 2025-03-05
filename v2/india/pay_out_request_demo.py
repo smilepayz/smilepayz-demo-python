@@ -32,17 +32,14 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.INR.name, amount)
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
-
-    # receiverReq
-    receiver_req = ReceiverReq(None, None, None, None)
+    merchant_req = MerchantReq(merchant_id, "", None)
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account, ifsc_code, merchant_order_no[:32],
+    pay_in_req = TradePayoutReq(payment_method, None, None, cash_account, ifsc_code, merchant_order_no[:32],
                                 purpose,
                                 None,
                                 None,
-                                None, None, None, money_req, merchant_req, "notify url",
+                                None, None, None, money_req, merchant_req, "https://test",
                                 None, AreaEnum.INDIA.code)
 
     # jsonStr by json then minify
@@ -75,12 +72,12 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-env = ""
-merchant_id = ""
+env = "production"
+merchant_id = "20019"
 merchant_secret = ""
 private_key = ""
-payment_method = ""
+payment_method = "YES"
 amount = 100
-cash_account = ""
+cash_account = "12232321232"
 ifsc_code = ""
 pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, ifsc_code)

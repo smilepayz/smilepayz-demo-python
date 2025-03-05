@@ -2,10 +2,11 @@ from bean.TradeReq import TradeReq
 
 
 class TradePayoutReq(TradeReq):
-    def __init__(self, paymentMethod, payer, receiver, cashAccount, ifsccode,orderNo, purpose, productDetail, additionalParam,
-                 itemDetailList, billingAddress, shippingAddress, money, merchant, callbackUrl, redirectUrl,area):
+    def __init__(self, paymentMethod, payer, receiver, cashAccount, ifscCode, orderNo, purpose, productDetail,
+                 additionalParam,
+                 itemDetailList, billingAddress, shippingAddress, money, merchant, callbackUrl, redirectUrl, area):
         super().__init__(orderNo, purpose, productDetail, additionalParam, itemDetailList, billingAddress,
-                         shippingAddress, money, merchant, callbackUrl, redirectUrl,area)
+                         shippingAddress, money, merchant, callbackUrl, redirectUrl, area)
         if paymentMethod is not None:
             self.paymentMethod = paymentMethod
         if payer is not None:
@@ -14,5 +15,5 @@ class TradePayoutReq(TradeReq):
             self.receiver = receiver
         if cashAccount is not None:
             self.cashAccount = cashAccount
-        if ifsccode is not None:
-            self.ifsccode = ifsccode
+        if ifscCode is not None:
+            self.ifscCode = ifscCode
