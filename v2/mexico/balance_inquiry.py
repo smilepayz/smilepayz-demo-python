@@ -11,13 +11,9 @@ def balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no):
     global request_path
     print("=====> balance_inquiry")
     if env == "sandbox":
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-balance"
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/inquiry-balance"
 
     # sandbox
