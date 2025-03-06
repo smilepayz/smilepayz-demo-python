@@ -8,7 +8,6 @@ from v2.india.bean.AreaEnum import CurrencyEnum
 from v2.india.bean.Constants import Constants
 from v2.india.bean.MerchantReq import MerchantReq
 from v2.india.bean.MoneyReq import MoneyReq
-from v2.india.bean.ReceiverReq import ReceiverReq
 from v2.india.bean.TradePayoutReq import TradePayoutReq
 
 
