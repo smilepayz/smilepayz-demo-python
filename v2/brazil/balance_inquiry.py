@@ -7,7 +7,7 @@ from v2.brazil.bean.BalanceInquiryReq import BalanceInquiryReq
 from v2.brazil.bean.Constants import Constants
 
 
-def balance_inquiry(env, merchant_id, merchant_secret, account_no, privateKey):
+def balance_inquiry(env, merchant_id, merchant_secret, private_key,account_no):
     global request_path
     print("=====> balance_inquiry")
     if env == "sandbox":
@@ -33,7 +33,7 @@ def balance_inquiry(env, merchant_id, merchant_secret, account_no, privateKey):
     print("request_path=", request_path)
 
     # signature
-    signature = Tool_Sign.sha256RsaSignature(privateKey, string_to_sign)
+    signature = Tool_Sign.sha256RsaSignature(private_key, string_to_sign)
     print("signature=", signature)
 
     # post

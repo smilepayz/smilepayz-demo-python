@@ -12,6 +12,7 @@ from v2.brazil.bean.PayerReq import PayerReq
 from v2.brazil.bean.TradePayInReq import TradePayInReq
 
 
+
 def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, pix_account):
     global request_path
     print("=====> PayIn transaction")
@@ -74,12 +75,3 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     print("response result =", result)
 
 
-# run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-payment_method = ""
-amount = 100
-pix_account = ""
-transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, pix_account)
