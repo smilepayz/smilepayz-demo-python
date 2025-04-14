@@ -75,12 +75,13 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-payment_method = ""
-amount = 100
-cash_account = ""
-tax_number = ""
-pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, tax_number)
+if __name__ == '__main__':
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    payment_method = ""
+    amount = 100
+    cash_account = ""
+    tax_number = ""
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, tax_number)
