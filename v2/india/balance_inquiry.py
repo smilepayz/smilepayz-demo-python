@@ -55,9 +55,10 @@ def balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no):
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-account_no = ""
-balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no)
+if __name__ == '__main__':
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    account_no = ""
+    balance_inquiry(env, merchant_id, merchant_secret, private_key, account_no)

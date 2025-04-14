@@ -54,11 +54,12 @@ def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-trade_type = ""
-trade_no = ""
-order_no = ""
-status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no)
+if __name__ == '__main__':
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    trade_type = ""
+    trade_no = ""
+    order_no = ""
+    status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no)

@@ -71,12 +71,13 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-env = "production"
-merchant_id = "20019"
-merchant_secret = ""
-private_key = ""
-payment_method = "YES"
-amount = 100
-cash_account = "12232321232"
-ifsc_code = ""
-pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, ifsc_code)
+if __name__ == '__main__':
+    env = "production"
+    merchant_id = "20019"
+    merchant_secret = ""
+    private_key = ""
+    payment_method = "YES"
+    amount = 100
+    cash_account = "12232321232"
+    ifsc_code = ""
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, ifsc_code)

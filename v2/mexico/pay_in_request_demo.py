@@ -71,10 +71,12 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-payment_method = ""
-amount = 100
-transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount)
+if __name__ == '__main__':
+
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    payment_method = ""
+    amount = 100
+    transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount)
