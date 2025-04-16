@@ -2,18 +2,17 @@ import json
 
 import requests
 
-from v2.thailand import Tool_Sign
-from v2.thailand.bean.AreaEnum import AreaEnum
-from v2.thailand.bean.AreaEnum import CurrencyEnum
-from v2.thailand.bean.Constants import Constants
-from v2.thailand.bean.MerchantReq import MerchantReq
-from v2.thailand.bean.MoneyReq import MoneyReq
-from v2.thailand.bean.PayerReq import PayerReq
-from v2.thailand.bean.TradePayInReq import TradePayInReq
+from v2.colombia import Tool_Sign
+from v2.colombia.bean.AreaEnum import AreaEnum
+from v2.colombia.bean.AreaEnum import CurrencyEnum
+from v2.colombia.bean.Constants import Constants
+from v2.colombia.bean.MerchantReq import MerchantReq
+from v2.colombia.bean.MoneyReq import MoneyReq
+from v2.colombia.bean.PayerReq import PayerReq
+from v2.colombia.bean.TradePayInReq import TradePayInReq
 
 
-def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payer_name,
-                       payer_account, payer_bank):
+def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount,payer_name):
     global request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
@@ -24,7 +23,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('America/Lima')
     print("timestamp:" + timestamp)
 
     # partner_id
@@ -32,19 +31,18 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     purpose = "Purpose For Transaction from python SDK"
 
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.THB.name, amount)
+    money_req = MoneyReq(CurrencyEnum.COP.name, amount)
+
+    payer_req = PayerReq(payer_name, None, "")
 
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
-
-    # payerReq
-    payer_req = PayerReq(payer_name, None, None, payer_account, payer_bank)
+    merchant_req = MerchantReq(merchant_id, "", None)
 
     pay_in_req = TradePayInReq(payment_method, payer_req, None, None, merchant_order_no[:32], purpose,
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "your notify url",
-                               "redirect utl", AreaEnum.THAILAND.code)
+                               "redirect utl", AreaEnum.COLOMBIA.code)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -77,6 +75,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
 
 # run
 if __name__ == '__main__':
+
     env = ""
     merchant_id = ""
     merchant_secret = ""
@@ -84,8 +83,4 @@ if __name__ == '__main__':
     payment_method = ""
     amount = 100
     payer_name = ""
-    payer_account = ""
-    payer_bank = ""
-    transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payer_name,
-                       payer_account,
-                       payer_bank)
+    transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount,payer_name)

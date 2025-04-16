@@ -8,33 +8,26 @@ class CurrencyEnum(Enum):
 class AreaEnum(Enum):
     THAILAND = (11, CurrencyEnum.THB, 66)
 
+    def __init__(self, code, currency, country_id):
+        self._code = code
+        self._currency = currency
+        self._country_id = country_id
 
-def __init__(self, code, currency, country_id):
-    self._code = code
-    self._currency = currency
-    self._country_id = country_id
+    @property
+    def code(self):
+        return self._code
 
+    @property
+    def currency(self):
+        return self._currency
 
-@property
+    @property
+    def country_id(self):
+        return self._country_id
 
-
-def code(self):
-    return self._code
-
-
-@property
-def currency(self):
-    return self._currency
-
-
-@property
-def country_id(self):
-    return self._country_id
-
-
-@classmethod
-def from_code(cls, code):
-    for area in cls:
-        if area.code == code:
-            return area
-    raise ValueError(f"No matching AreaEnum for code: {code}")
+    @classmethod
+    def from_code(cls, code):
+        for area in cls:
+            if area.code == code:
+                return area
+        raise ValueError(f"No matching AreaEnum for code: {code}")

@@ -2,11 +2,11 @@ from enum import Enum, auto
 
 
 class CurrencyEnum(Enum):
-    IDR = auto()
+    COP = auto()
 
 
 class AreaEnum(Enum):
-    INDONESIA = (10, CurrencyEnum.IDR, 62)
+    COLOMBIA = (16, CurrencyEnum.COP, 62)
 
     def __init__(self, code, currency, country_id):
         self._code = code

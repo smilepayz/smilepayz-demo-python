@@ -23,7 +23,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Jakarta')
     print("timestamp:" + timestamp)
 
     # partner_id

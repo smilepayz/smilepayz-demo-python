@@ -1,15 +1,12 @@
-
 from enum import Enum, auto
 
-class CurrencyEnum(Enum):
 
+class CurrencyEnum(Enum):
     INR = auto()
 
+
 class AreaEnum(Enum):
-
-
     INDIA = (12, CurrencyEnum.INR, 91)
-
 
     def __init__(self, code, currency, country_id):
         self._code = code

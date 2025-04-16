@@ -23,7 +23,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('America/Sao_Paulo')
     print("timestamp:" + timestamp)
     # partner_id
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()

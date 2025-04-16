@@ -1,13 +1,11 @@
-
 from enum import Enum, auto
 
-class CurrencyEnum(Enum):
 
+class CurrencyEnum(Enum):
     MXN = auto()
 
+
 class AreaEnum(Enum):
-
-
     MEXICO = (14, CurrencyEnum.MXN, 52)
 
     def __init__(self, code, currency, country_id):
