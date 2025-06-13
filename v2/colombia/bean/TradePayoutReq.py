@@ -15,4 +15,4 @@ class TradePayoutReq(TradeReq):
         if cashAccount is not None:
             self.cashAccount = cashAccount
         if cashAccountType is not None:
-            self.cashAccount = cashAccountType
+            self.cashAccountType = cashAccountType
