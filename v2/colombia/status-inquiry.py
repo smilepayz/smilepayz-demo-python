@@ -7,7 +7,7 @@ from v2.colombia.bean.OrderStatusInquiry import OrderStatusInquiry
 from v2.colombia.bean.Constants import Constants
 
 
-def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no,):
+def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no):
     global  request_path
     if env == "production":
         # production
