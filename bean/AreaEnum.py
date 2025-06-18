@@ -7,6 +7,7 @@ class CurrencyEnum(Enum):
     INR = auto()
     BRL = auto()
     MXN = auto()
+    COP = auto()
 
 class AreaEnum(Enum):
 
@@ -15,6 +16,7 @@ class AreaEnum(Enum):
     INDIA = (12, CurrencyEnum.INR, 91)
     BRAZIL = (13, CurrencyEnum.BRL, 55)
     MEXICO = (14, CurrencyEnum.MXN, 52)
+    COLOMBIA = (16, CurrencyEnum.COP, 62)
 
     def __init__(self, code, currency, country_id):
         self._code = code

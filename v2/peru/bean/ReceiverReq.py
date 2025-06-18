@@ -12,7 +12,7 @@ class ReceiverReq:
         if identity is not None:
             self.identity = identity
         if idType is not None:
-            idtype = idType
+            self.idType = idType
 
     def print_info(self):
         print(f"{self.name} {self.email} {self.phone} ")
