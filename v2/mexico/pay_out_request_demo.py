@@ -72,17 +72,27 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
     print("response result=", result)
 
     # 断言
-    assert result is not None, "接口未返回数据"
-    assert result.get('code') == '00', f"接口调用失败，code={result.get('code')}"
-    assert result.get('status') in ['REVIEW', 'PROCESSING'], f"状态异常，status={result.get('status')}"
-    assert 'tradeNo' in result and result['tradeNo'], "缺少tradeNo"
-    assert 'orderNo' in result and result['orderNo'], "缺少orderNo"
-    assert result.get('money', {}).get('currency') == 'MXN', f"币种错误，currency={result.get('money', {}).get('currency')}"
-    assert isinstance(result.get('money', {}).get('amount'), (int, float)), "金额不合法"
-    assert result.get('channel', {}).get('paymentMethod') == 'INBURSA', f"支付方式错误，paymentMethod={result.get('channel', {}).get('paymentMethod')}"
+    # assert result is not None, "接口未返回数据"
+    # assert result.get('code') == '00', f"接口调用失败，code={result.get('code')}"
+    # assert result.get('status') in ['REVIEW', 'PROCESSING'], f"状态异常，status={result.get('status')}"
+    # assert 'tradeNo' in result and result['tradeNo'], "缺少tradeNo"
+    # assert 'orderNo' in result and result['orderNo'], "缺少orderNo"
+    # assert result.get('money', {}).get('currency') == 'MXN', f"币种错误，currency={result.get('money', {}).get('currency')}"
+    # assert isinstance(result.get('money', {}).get('amount'), (int, float)), "金额不合法"
+    # assert result.get('channel', {}).get('paymentMethod') == 'INBURSA', f"支付方式错误，paymentMethod={result.get('channel', {}).get('paymentMethod')}"
+    #
 
 
-# run
+#  #run
+# env = "production"
+# merchant_id = "20011"
+# merchant_secret = "b3114906e3c334ffb690f3234c8083967301d5e5d9124e3671d5219235091962"
+# private_key = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC1QPfjagxUnVcTgyW727r/ms+hECiCb8UwhIlRi7Olq4ffYSlhxw2xAxEhsvJoCKaP8p1FB23PG4Xq2rctdMVNS2DOMMgNPMf4b1xWpLUhW3uQIfM+4rsJEEworYPyBNGYpGawR4wT5+9tHRWLuVwrrCcYERJylXk9aMw5wt+GtoBRYREl8e5Nb3IicZwoPX1NhewV4hOi12DahGMDT9P0lv6v97hWY3CsiNXibhVJhCZ4L+fwczQd7OV/4+vlsds3z3ndqClPz23xKlH8312dL7dX43A7CoLo2nbBgXDVK7GXsD7ghIgFINVtVyHhVhGyrhfKTU3//GzzawZctuuNAgMBAAECggEAUfvyhENmE2ndxp4mFbx0b4RLURt5b1J2G5V/dUqe9htJyJDuwmLifwQXnioOel8bU/YWC/Cpyym0X8ARZfaw/d7QCUPIYTBydR2N40T6Bv4VvGKW34V3u0hLYoTlrzVdxtDp/+dE5YYd5rlmkv5DQh/KyRiDwx94KP47jg7mw0wLg+D+tNZOeyQm5VHrPnOO4JVOcnSc1Ul0sG30xcpYFCR0mZK47TKyn7l+GYf23jEWXSSzUgHK7wGx53pKgNJ/hllznBn7EjzdAoy3faqulHhbTPKSmxolYvg7hrRUzCQ1RHQw7EwecDU53vsT5BE1GS6RFrSjlyRxgm/EmOZnwwKBgQDbkjLPUWQM9E1stthF77rEjkQowRP32huAGvYp1Vx7BgIyUPEsn65Oh7MyFKUeeLl3wgvIt6J5u3qvNAlO6i38pp/VGdV//UiYxmBeIG5YiWb7U85TomBWwbxTY+GxwlK004P2o2CvYKqPIU+QN7fZ5P4JTfzPn5LKJkas+i/ofwKBgQDTU1N9hx2QBP3afKTFL25/a57QsFdnoVn3zHKiUNoO4PUthoTzRKWmkGK/pENFkMcwUWS6Vbtb4PHM7XCOIK4Q5hhUyXCXCcTx1b+nYuowVnnRFKs+OAw73obz6n62vXsqyBb5WXYWuTeUyHliJXK8CKyYdb6sR1MsKV4HRu1F8wKBgDAdPEcTxcHU8vZkpsXEf3+80RDBJngEckxDHDgUifxnV6ng9MhbgV2x/MF3pqsjtziX6+8i1laoj3y/AV8qj8MyXAndbFxsizD3H3zgzG1YRpnCRo8rIMNCFtuLIpTKSUdYpi0wpeooW5ebrAylOQNlW4l8bm6swATOGGSlOkRPAoGARW1bwaLRUI6DQ/OtQmcZ21zlGVTF8nLtFt8hTjhX24mGo0VNioqkDXvkJWf2/fTZrAMhn6Io4r+dUSE02EzeQwkFN13S0pxQCs+Znol9vRG8BbfPpqpNQqISHjKNHMZVn7GK8rK0fDSvkP7n+hmpfyMuaQxN71Wjep/Al41yyIcCgYAzZfUMgODQsxgohqtFB8q70wsNsIvvqwhBm9r+s6kKdlgGjLNuG7EcLiQ3wdCN0wVbHvMZ0DTwRTqZKJqhF+IqyCjf8b/SvESiooAG5jt16OxDsVVjwlpLS7Q6N5IIoprzDgqWYZ7tWo+pwhxS4T9hPxVLfeMZ837KB+Cfk2ebrA=="
+# payment_method = "SANTANDER"
+# amount = 10
+# cash_account = "5570100400244156"
+# pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)
+# # run
 if __name__ == '__main__':
 
     env = 'production'

@@ -34,7 +34,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     money_req = MoneyReq(CurrencyEnum.PHP.name, amount)
 
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None,"2015801")#加了submerchantid就变成子商户的订单
 
     # payerReq
     payer_req = PayerReq(payerName, email, phone)
