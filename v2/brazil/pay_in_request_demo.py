@@ -34,7 +34,8 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
 
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None)#增加一个子商户submerchanid
+
 
     # payerReq
     payer_req = PayerReq(None, None, None, pix_account)
@@ -74,8 +75,8 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     print("response result =", result)
 
     # 断言
-    assert result['code']=='00',f"接口调用失败，code={result['code']},message={result.get("message")}"
-    assert 'tradeNo' in result and result['tradeNo'], "tradeNo缺失或为空"
+    assert result['code']=='00',f"接口调用失败，code={result['code']},message={result.get( 'message')}"
+    assert 'tradeNo' in result and result['tradeNo'], 'tradeNo缺失或为空'
     assert 'orderNo' in result and result['orderNo'], "orderNo缺失或为空"
     assert 'status' in result, "返回结果缺少status字段"
     assert result['status'] in ['PROCESSING', 'REVIEW'], f"状态异常：{result['status']}"

@@ -72,6 +72,20 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     # Get response result
     result = response.json()
     print("response result =", result)
+    # 断言
+    assert result['code'] == '00', f"接口调用失败，code={result['code']},message={result.get('message')}"
+    assert 'tradeNo' in result and result['tradeNo'], "tradeNo缺失或为空"
+    assert 'orderNo' in result and result['orderNo'], "orderNo缺失或为空"
+    assert 'status' in result, "返回结果缺少status字段"
+    assert result['status'] in ['PROCESSING', 'REVIEW'], f"状态异常：{result['status']}"
+    assert 'money' in result, "返回结果缺少money字段"
+    assert 'amount' in result['money'], "money字段缺少amount"
+    assert abs(result['money']['amount'] - amount) < 0.01, f"金额不匹配，返回金额：{result['money']['amount']}，请求金额：{amount}"
+    assert 'currency' in result['money'], "money字段缺少currency"
+    assert result['money']['currency'] == 'PHP', f"币种错误，返回币种：{result['money']['currency']}"
+    assert 'channel' in result, "返回结果缺少channel字段"
+    assert 'paymentMethod' in result['channel'], "channel字段缺少paymentMethod"
+    assert result['channel']['paymentMethod'] == 'GCASH', f"支付方式不匹配，返回支付方式：{result['channel']['paymentMethod']}"
 
 
 if __name__ == '__main__':

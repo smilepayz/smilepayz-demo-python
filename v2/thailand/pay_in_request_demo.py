@@ -74,7 +74,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     result = response.json()
     print("response result =", result)
     # 断言
-    assert result['code'] == '00', f"接口调用失败，code={result['code']},message={result.get("message")}"
+    assert result['code'] == '00', f"接口调用失败，code={result['code']},message={result.get('message')}"
     assert 'tradeNo' in result and result['tradeNo'], "tradeNo缺失或为空"
     assert 'orderNo' in result and result['orderNo'], "orderNo缺失或为空"
     assert 'status' in result, "返回结果缺少status字段"
