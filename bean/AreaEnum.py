@@ -11,12 +11,12 @@ class CurrencyEnum(Enum):
 
 class AreaEnum(Enum):
 
-    INDONESIA = (10, CurrencyEnum.IDR, 62)
-    THAILAND = (11, CurrencyEnum.THB, 66)
-    INDIA = (12, CurrencyEnum.INR, 91)
-    BRAZIL = (13, CurrencyEnum.BRL, 55)
-    MEXICO = (14, CurrencyEnum.MXN, 52)
-    COLOMBIA = (16, CurrencyEnum.COP, 62)
+    INDONESIA = (100, CurrencyEnum.IDR, 62)
+    THAILAND = (100, CurrencyEnum.THB, 66)
+    INDIA = (100, CurrencyEnum.INR, 91)
+    BRAZIL = (100, CurrencyEnum.BRL, 55)
+    MEXICO = (100, CurrencyEnum.MXN, 52)
+    COLOMBIA = (100, CurrencyEnum.COP, 62)
 
     def __init__(self, code, currency, country_id):
         self._code = code

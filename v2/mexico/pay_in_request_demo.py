@@ -39,7 +39,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "https://www.mxx.com",
-                               "https://www.mxx.com", AreaEnum.MEXICO.code)
+                               "https://www.mxx.com")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

@@ -34,7 +34,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     money_req = MoneyReq(CurrencyEnum.PHP.name, amount)
 
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None,"2015801")#加了submerchantid就变成子商户的订单
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None)#加了submerchantid就变成子商户的订单
 
     # payerReq
     payer_req = PayerReq(payerName, email, phone)
@@ -43,7 +43,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "",
-                               "", AreaEnum.PHILIPPINES.code)
+                               "")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

@@ -41,7 +41,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key,
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "https://www.baidu.com",
-                                'https://www.baidu.com', AreaEnum.COLOMBIA.code)
+                                'https://www.baidu.com')
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

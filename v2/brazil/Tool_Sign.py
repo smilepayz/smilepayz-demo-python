@@ -76,12 +76,12 @@ merchant_secret = "6a58a603e5043290f4097ee4a7745661b3656932d4eebc3106b5dddc3af6e
 
 # minify demo
 money_req = MoneyReq(CurrencyEnum.BRL.name, 10000)
-merchant_req = MerchantReq("20019", None, None)
+merchant_req = MerchantReq("20019", None, None,None)
 pay_in_req = TradePayInReq("BCA", None, None, None, "order-1234566789", "minify demo",
                            None,
                            None,
                            None, None, None, money_req, merchant_req, None,
-                           None, AreaEnum.BRAZIL.code)
+                           None)
 
 if __name__ == '__main__':
     minifyStr = minify(pay_in_req)

@@ -32,7 +32,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
     # moneyReq
     money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None,2015801)
 
     # receiverReq
     receiver_req = ReceiverReq("abc", None, None,
@@ -43,7 +43,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "https://www.baidu.com",
-                                None, AreaEnum.BRAZIL.code)
+                                None)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

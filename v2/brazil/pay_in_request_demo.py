@@ -34,7 +34,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
 
     # merchantReq
-    merchant_req = MerchantReq(merchant_id, "your merchant name", None)#增加一个子商户submerchanid
+    merchant_req = MerchantReq(merchant_id, "your merchant name", None,2015801)#增加一个子商户submerchanid
 
 
     # payerReq
@@ -44,7 +44,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "https://www.baidu.com",
-                               "https://www.baidu.com", AreaEnum.BRAZIL.code)
+                               "https://www.baidu.com")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

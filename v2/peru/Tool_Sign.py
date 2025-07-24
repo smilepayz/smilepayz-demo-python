@@ -81,7 +81,7 @@ pay_in_req = TradePayInReq("BCA", None, None, None, "order-1234566789", "minify 
                            None,
                            None,
                            None, None, None, money_req, merchant_req, None,
-                           None, AreaEnum.INDONESIA.code)
+                           None)
 
 if __name__ == '__main__':
     minifyStr = minify(pay_in_req)

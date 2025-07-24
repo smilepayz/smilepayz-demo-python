@@ -6,7 +6,7 @@ class CurrencyEnum(Enum):
 
 
 class AreaEnum(Enum):
-    INDIA = (12, CurrencyEnum.INR, 91)
+    INDIA = (100, CurrencyEnum.INR, 91)
 
     def __init__(self, code, currency, country_id):
         self._code = code
