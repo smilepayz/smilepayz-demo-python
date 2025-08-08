@@ -3,7 +3,6 @@ import json
 import requests
 
 from v2.indonesia import Tool_Sign
-from v2.indonesia.bean.AreaEnum import AreaEnum
 from v2.indonesia.bean.AreaEnum import CurrencyEnum
 from v2.indonesia.bean.Constants import Constants
 from v2.indonesia.bean.MerchantReq import MerchantReq
@@ -43,7 +42,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "your notify url",
-                               "redirect utl", AreaEnum.INDONESIA.code)
+                               "redirect utl")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

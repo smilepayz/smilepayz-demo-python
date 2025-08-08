@@ -3,7 +3,6 @@ import json
 import requests
 
 from v2.thailand import Tool_Sign
-from v2.thailand.bean.AreaEnum import AreaEnum
 from v2.thailand.bean.AreaEnum import CurrencyEnum
 from v2.thailand.bean.Constants import Constants
 from v2.thailand.bean.MerchantReq import MerchantReq
@@ -45,7 +44,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "notify url",
-                                None, AreaEnum.THAILAND.code)
+                                None )
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
