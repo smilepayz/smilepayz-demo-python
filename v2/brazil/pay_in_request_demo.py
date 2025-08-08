@@ -12,7 +12,6 @@ from v2.brazil.bean.PayerReq import PayerReq
 from v2.brazil.bean.TradePayInReq import TradePayInReq
 
 
-
 def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, pix_account):
     global request_path
     print("=====> PayIn transaction")
@@ -24,7 +23,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('America/Sao_Paulo')
     print("timestamp:" + timestamp)
 
     # partner_id
@@ -75,3 +74,12 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     print("response result =", result)
 
 
+if __name__ == '__main__':
+    env = 'sandbox'
+    merchant_id = 'sandbox-20011'
+    merchant_secret = ''
+    private_key = ''
+    payment_method = 'PIX'
+    amount = 1000
+    pix_account = '12345678909'
+    transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_method,amount,pix_account)

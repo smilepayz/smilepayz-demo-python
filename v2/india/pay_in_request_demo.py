@@ -22,7 +22,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Kolkata')
     print("timestamp:" + timestamp)
 
     # merchant_id
@@ -74,11 +74,12 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-payment_method = ""
-amount = 100
-email = ""
-transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, email)
+if __name__ == '__main__':
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    payment_method = ""
+    amount = 100
+    email = ""
+    transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, email)

@@ -15,13 +15,9 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
     global request_path
     if env == "production":
         # production
-        merchant_id = Constants.merchantId
-        merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/disbursement/pay-out"
     if env == "sandbox":
         # sandbox
-        merchant_id = Constants.merchantIdSandBox
-        merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
@@ -76,11 +72,12 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-env = ""
-merchant_id = ""
-merchant_secret = ""
-private_key = ""
-payment_method = ""
-amount = 100
-cash_account = ""
-pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)
+if __name__ == '__main__':
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    payment_method = ""
+    amount = 100
+    cash_account = ""
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)

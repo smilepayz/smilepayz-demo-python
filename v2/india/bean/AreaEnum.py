@@ -1,20 +1,12 @@
-
 from enum import Enum, auto
 
+
 class CurrencyEnum(Enum):
-    IDR = auto()
-    THB = auto()
     INR = auto()
-    BRL = auto()
-    MXN = auto()
+
 
 class AreaEnum(Enum):
-
-    INDONESIA = (10, CurrencyEnum.IDR, 62)
-    THAILAND = (11, CurrencyEnum.THB, 66)
     INDIA = (12, CurrencyEnum.INR, 91)
-    BRAZIL = (13, CurrencyEnum.BRL, 55)
-    MEXICO = (14, CurrencyEnum.MXN, 52)
 
     def __init__(self, code, currency, country_id):
         self._code = code

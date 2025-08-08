@@ -3,11 +3,11 @@ import json
 import requests
 
 from v2.thailand import Tool_Sign
-from v2.thailand.bean.OrderStatusInquiry import OrderStatusInquiry
 from v2.thailand.bean.Constants import Constants
+from v2.thailand.bean.OrderStatusInquiry import OrderStatusInquiry
 
 
-def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no):
+def status_inquiry(env, merchant_id, merchant_secret, private_key, trade_type, trade_no, order_no):
     global request_path
     if env == "production":
         # production
@@ -17,13 +17,12 @@ def status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_
         # sandbox
         request_path = Constants.baseUrlSandbox + "/v2.0/inquiry-status"
 
-
     # transaction time
     timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
     print("timestamp:" + timestamp)
 
     # payInReq,  None fields are optional
-    order_status_inquiry = OrderStatusInquiry(trade_type, trade_no,order_no)
+    order_status_inquiry = OrderStatusInquiry(trade_type, trade_no, order_no)
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(order_status_inquiry, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -62,4 +61,4 @@ private_key = ""
 trade_type = ""
 trade_no = ""
 order_no = ""
-status_inquiry(env,merchant_id,merchant_secret,private_key,trade_type,trade_no,order_no)
+status_inquiry(env, merchant_id, merchant_secret, private_key, trade_type, trade_no, order_no)

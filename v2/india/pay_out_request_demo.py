@@ -8,7 +8,6 @@ from v2.india.bean.AreaEnum import CurrencyEnum
 from v2.india.bean.Constants import Constants
 from v2.india.bean.MerchantReq import MerchantReq
 from v2.india.bean.MoneyReq import MoneyReq
-from v2.india.bean.ReceiverReq import ReceiverReq
 from v2.india.bean.TradePayoutReq import TradePayoutReq
 
 
@@ -23,7 +22,7 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Kolkata')
     print("timestamp:" + timestamp)
     # partner_id
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
@@ -72,12 +71,13 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
 
 
 # run
-env = "production"
-merchant_id = "20019"
-merchant_secret = ""
-private_key = ""
-payment_method = "YES"
-amount = 100
-cash_account = "12232321232"
-ifsc_code = ""
-pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, ifsc_code)
+if __name__ == '__main__':
+    env = "production"
+    merchant_id = "20019"
+    merchant_secret = ""
+    private_key = ""
+    payment_method = "YES"
+    amount = 100
+    cash_account = "12232321232"
+    ifsc_code = ""
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, ifsc_code)
