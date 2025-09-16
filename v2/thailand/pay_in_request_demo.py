@@ -40,10 +40,9 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     payer_req = PayerReq(payer_name, None, None, payer_account, payer_bank)
 
     pay_in_req = TradePayInReq(payment_method, payer_req, None, None, merchant_order_no[:32], purpose,
-                               None,
-                               None,
-                               None, None, None, money_req, merchant_req, "your notify url",
-                               "redirect utl" )
+                               money_req,
+                               merchant_req,
+                               "your notify url", "redirect utl"  )
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))

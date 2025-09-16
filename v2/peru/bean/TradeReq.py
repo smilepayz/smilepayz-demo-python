@@ -1,6 +1,6 @@
 class TradeReq:
     def __init__(self, orderNo, purpose, productDetail, additionalParam, itemDetailList, billingAddress,
-                 shippingAddress, money, merchant, callbackUrl, redirectUrl, area):
+                 shippingAddress, money, merchant, callbackUrl, redirectUrl):
         if orderNo is not None:
             self.orderNo = orderNo
         if purpose is not None:
@@ -23,5 +23,4 @@ class TradeReq:
             self.callbackUrl = callbackUrl
         if redirectUrl is not None:
             self.redirectUrl = redirectUrl
-        if area is not None:
-            self.area = area
+

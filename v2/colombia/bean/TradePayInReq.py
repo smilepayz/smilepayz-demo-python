@@ -1,4 +1,4 @@
-from bean.TradeReq import TradeReq
+from v2.colombia.bean.TradeReq import TradeReq
 
 
 class TradePayInReq(TradeReq):

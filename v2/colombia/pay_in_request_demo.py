@@ -3,8 +3,7 @@ import json
 import requests
 
 from v2.colombia import Tool_Sign
-from v2.colombia.bean.AreaEnum import AreaEnum
-from v2.colombia.bean.AreaEnum import CurrencyEnum
+from v2.colombia.bean.CurrencyEnum import CurrencyEnum
 from v2.colombia.bean.Constants import Constants
 from v2.colombia.bean.MerchantReq import MerchantReq
 from v2.colombia.bean.MoneyReq import MoneyReq

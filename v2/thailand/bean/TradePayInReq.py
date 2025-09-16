@@ -1,11 +1,9 @@
-from bean.TradeReq import TradeReq
+from v2.thailand.bean.TradeReq import TradeReq
 
 
 class TradePayInReq(TradeReq):
-    def __init__(self, paymentMethod, payer, receiver, expiryPeriod, orderNo, purpose, productDetail, additionalParam,
-                 itemDetailList, billingAddress, shippingAddress, money, merchant, callbackUrl, redirectUrl):
-        super().__init__(orderNo, purpose, productDetail, additionalParam, itemDetailList, billingAddress,
-                         shippingAddress, money, merchant, callbackUrl, redirectUrl)
+    def __init__(self, paymentMethod, payer, receiver, expiryPeriod, orderNo, purpose, money, merchant, callbackUrl, redirectUrl):
+        super().__init__(orderNo, purpose, money, merchant, callbackUrl, redirectUrl)
         if paymentMethod is not None:
             self.paymentMethod = paymentMethod
         if payer is not None:

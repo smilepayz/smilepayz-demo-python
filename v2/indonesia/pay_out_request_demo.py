@@ -3,8 +3,7 @@ import json
 import requests
 
 from v2.indonesia import Tool_Sign
-from v2.indonesia.bean.AreaEnum import AreaEnum
-from v2.indonesia.bean.AreaEnum import CurrencyEnum
+from v2.indonesia.bean.CurrencyEnum import CurrencyEnum
 from v2.indonesia.bean.Constants import Constants
 from v2.indonesia.bean.MerchantReq import MerchantReq
 from v2.indonesia.bean.MoneyReq import MoneyReq

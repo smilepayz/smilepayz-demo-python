@@ -11,10 +11,10 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime
 
-from bean.CurrencyEnum import CurrencyEnum
-from bean.MerchantReq import MerchantReq
-from bean.MoneyReq import MoneyReq
-from bean.TradePayInReq import TradePayInReq
+from v2.thailand.bean.CurrencyEnum import CurrencyEnum
+from v2.thailand.bean.MerchantReq import MerchantReq
+from v2.thailand.bean.MoneyReq import MoneyReq
+from v2.thailand.bean.TradePayInReq import TradePayInReq
 
 
 def checkSha256RsaSignature(content, signature, publicKeyStr):
