@@ -2,16 +2,15 @@ import json
 
 import requests
 
-from v2.philippines import Tool_Sign
-from v2.philippines.bean.CurrencyEnum import CurrencyEnum
-from v2.philippines.bean.Constants import Constants
-from v2.philippines.bean.MerchantReq import MerchantReq
-from v2.philippines.bean.MoneyReq import MoneyReq
-from v2.philippines.bean.PayerReq import PayerReq
-from v2.philippines.bean.TradePayInReq import TradePayInReq
+from v2.vietnam import Tool_Sign
+from v2.vietnam.bean.Constants import Constants
+from v2.vietnam.bean.CurrencyEnum import CurrencyEnum
+from v2.vietnam.bean.MerchantReq import MerchantReq
+from v2.vietnam.bean.MoneyReq import MoneyReq
+from v2.vietnam.bean.TradePayInReq import TradePayInReq
 
 
-def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payerName, email, phone):
+def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount):
     global request_path
     print("=====> PayIn transaction")
     if env == "sandbox":
@@ -22,7 +21,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('America/Sao_Paulo')
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
     print("timestamp:" + timestamp)
 
     # partner_id
@@ -30,18 +29,14 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     purpose = "Purpose For Transaction from python SDK"
 
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.PHP.name, amount)
+    money_req = MoneyReq(CurrencyEnum.VND.name, amount)
 
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
-    # payerReq
-    payer_req = PayerReq(payerName, email, phone)
-
-    pay_in_req = TradePayInReq(payment_method, payer_req, None, None, merchant_order_no[:32], purpose,
-                               None,
-                               None,
-                               None, None, None, money_req, merchant_req, "your notify url",
+    pay_in_req = TradePayInReq(payment_method, None, None, merchant_order_no[:32], purpose,
+                               money_req, merchant_req,
+                               "your notify url",
                                "redirect utl")
 
     # jsonStr by json then minify
@@ -73,14 +68,15 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     print("response result =", result)
 
 
+# run
 if __name__ == '__main__':
-    env = 'sandbox'
-    merchant_id = 'sandbox-20011'
-    merchant_secret = ''
-    private_key = ''
-    payment_method = 'GCASH'
-    amount = 1000
-    payerName = '12345678909'
-    email='smilepayz@gmail.com'
-    phone='63880880888'
-    transaction_pay_in(env,merchant_id,merchant_secret,private_key,payment_method,amount,payerName,email,phone)
+    env = ""
+    merchant_id = ""
+    merchant_secret = ""
+    private_key = ""
+    payment_method = ""
+    amount = 20000
+    payer_name = ""
+    payer_account = ""
+    payer_bank = ""
+    transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount)

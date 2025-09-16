@@ -3,8 +3,8 @@ import json
 import requests
 
 from v2.peru import Tool_Sign
-from v2.peru.bean.AreaEnum import AreaEnum
-from v2.peru.bean.AreaEnum import CurrencyEnum
+
+from v2.peru.bean.CurrencyEnum import CurrencyEnum
 from v2.peru.bean.Constants import Constants
 from v2.peru.bean.MerchantReq import MerchantReq
 from v2.peru.bean.MoneyReq import MoneyReq

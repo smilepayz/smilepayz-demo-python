@@ -11,8 +11,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime
 
-from bean.AreaEnum import AreaEnum
-from bean.AreaEnum import CurrencyEnum
+from bean.CurrencyEnum import CurrencyEnum
 from bean.MerchantReq import MerchantReq
 from bean.MoneyReq import MoneyReq
 from bean.TradePayInReq import TradePayInReq
@@ -81,7 +80,7 @@ pay_in_req = TradePayInReq("BCA", None, None, None, "order-1234566789", "minify 
                            None,
                            None,
                            None, None, None, money_req, merchant_req, None,
-                           None, AreaEnum.INDONESIA.code)
+                           None )
 
 if __name__ == '__main__':
     minifyStr = minify(pay_in_req)

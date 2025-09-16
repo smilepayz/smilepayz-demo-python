@@ -2,18 +2,16 @@ import json
 
 import requests
 
-from v2.philippines import Tool_Sign
+from v2.vietnam import Tool_Sign
+from v2.vietnam.bean.CurrencyEnum import CurrencyEnum
+from v2.vietnam.bean.Constants import Constants
+from v2.vietnam.bean.MerchantReq import MerchantReq
+from v2.vietnam.bean.MoneyReq import MoneyReq
+from v2.vietnam.bean.ReceiverReq import ReceiverReq
+from v2.vietnam.bean.TradePayoutReq import TradePayoutReq
 
-from v2.philippines.bean.CurrencyEnum import CurrencyEnum
-from v2.philippines.bean.Constants import Constants
-from v2.philippines.bean.MerchantReq import MerchantReq
-from v2.philippines.bean.MoneyReq import MoneyReq
-from v2.philippines.bean.ReceiverReq import ReceiverReq
-from v2.philippines.bean.TradePayoutReq import TradePayoutReq
 
-
-def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account,
-                         receiverName):
+def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account):
     global request_path
     if env == "production":
         # production
@@ -23,26 +21,25 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('America/Sao_Paulo')
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
     print("timestamp:" + timestamp)
     # partner_id
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.BRL.name, amount)
+    money_req = MoneyReq(CurrencyEnum.VND.name, amount)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
     # receiverReq
-    receiver_req = ReceiverReq(receiverName, None, None)
+    receiver_req = ReceiverReq("abc", "adc@gmail.com", "215896541526")
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account, merchant_order_no[:32], purpose,
-                                None,
-                                None,
-                                None, None, None, money_req, merchant_req, "notify url",
-                                None )
+    pay_in_req = TradePayoutReq(payment_method, receiver_req, cash_account,"TO_PRIVATE", merchant_order_no[:32], purpose,
+                                money_req,
+                                merchant_req,
+                                "notify url" )
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -80,7 +77,6 @@ if __name__ == '__main__':
     merchant_secret = ""
     private_key = ""
     payment_method = ""
-    amount = 100
+    amount = 50000
     cash_account = ""
-    receiverName = ""
-    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account, receiverName)
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)

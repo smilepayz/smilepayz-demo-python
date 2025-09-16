@@ -3,7 +3,7 @@ import json
 import requests
 
 from v2.thailand import Tool_Sign
-from v2.thailand.bean.AreaEnum import CurrencyEnum
+from v2.thailand.bean.CurrencyEnum import CurrencyEnum
 from v2.thailand.bean.Constants import Constants
 from v2.thailand.bean.MerchantReq import MerchantReq
 from v2.thailand.bean.MoneyReq import MoneyReq

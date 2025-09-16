@@ -1,0 +1,14 @@
+from v2.vietnam.bean.TradeReq import TradeReq
+
+
+class TradePayoutReq(TradeReq):
+    def __init__(self, paymentMethod, receiver, cashAccount, cashAccountType,orderNo, purpose,money, merchant, callbackUrl):
+        super().__init__(orderNo, purpose, money, merchant, paymentMethod,callbackUrl)
+        if paymentMethod is not None:
+            self.paymentMethod = paymentMethod
+        if receiver is not None:
+            self.receiver = receiver
+        if cashAccount is not None:
+            self.cashAccount = cashAccount
+        if cashAccountType is not None:
+            self.cashAccountType = cashAccountType

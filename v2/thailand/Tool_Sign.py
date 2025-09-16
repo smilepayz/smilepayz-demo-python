@@ -11,8 +11,7 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime
 
-from bean.AreaEnum import AreaEnum
-from bean.AreaEnum import CurrencyEnum
+from bean.CurrencyEnum import CurrencyEnum
 from bean.MerchantReq import MerchantReq
 from bean.MoneyReq import MoneyReq
 from bean.TradePayInReq import TradePayInReq
