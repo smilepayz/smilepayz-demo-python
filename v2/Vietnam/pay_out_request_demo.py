@@ -2,42 +2,47 @@ import json
 
 import requests
 
-from v2.peru import Tool_Sign
-from v2.peru.bean.AreaEnum import AreaEnum
-from v2.peru.bean.AreaEnum import CurrencyEnum
-from v2.peru.bean.Constants import Constants
-from v2.peru.bean.MerchantReq import MerchantReq
-from v2.peru.bean.MoneyReq import MoneyReq
-from v2.peru.bean.TradePayoutReq import TradePayoutReq
-from v2.peru.bean.ReceiverReq import ReceiverReq
+from v2.Vietnam import Tool_Sign
+from v2.thailand.bean.AreaEnum import AreaEnum
+from v2.Vietnam.bean.AreaEnum import CurrencyEnum
+from v2.Vietnam.bean.Constants import Constants
+from v2.Vietnam.bean.MerchantReq import MerchantReq
+from v2.Vietnam.bean.MoneyReq import MoneyReq
+from v2.Vietnam.bean.ReceiverReq import ReceiverReq
+from v2.Vietnam.bean.TradePayoutReq import TradePayoutReq
 
 
-def pay_out_request_demo(env, merchant_id, merchant_secret, private_key,
-                         payment_method, amount, cash_account,cash_account_type,receiver_req):
+def pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account):
     global request_path
     if env == "production":
         # production
+        # merchant_id = Constants.merchantId
+        # merchant_secret = Constants.merchantSecret
         request_path = Constants.baseUrl + "/v2.0/disbursement/pay-out"
     if env == "sandbox":
         # sandbox
+        # merchant_id = Constants.merchantIdSandBox
+        # merchant_secret = Constants.merchantSecretSandBox
         request_path = Constants.baseUrlSandbox + "/v2.0/disbursement/pay-out"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('America/Lima')
+    # 时区越南胡志明市(Asia/Ho_Chi_Minh)
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Ho_Chi_Minh')
     print("timestamp:" + timestamp)
     # partner_id
     merchant_order_no = merchant_id + Tool_Sign.generate_32bit_uuid()
     purpose = "Purpose For Transaction from python SDK"
 
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.PEN.name, amount)
+    money_req = MoneyReq(CurrencyEnum.VND.name, amount)
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
 
+    # receiverReq
+    receiver_req = ReceiverReq("abc", '123@123',86123455)
 
     # payInReq
-    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account,cash_account_type,
-                                merchant_order_no[:32], purpose,
+    pay_in_req = TradePayoutReq(payment_method, None, receiver_req, cash_account, merchant_order_no[:32], purpose,
                                 None,
                                 None,
                                 None, None, None, money_req, merchant_req, "",
@@ -76,9 +81,9 @@ def pay_out_request_demo(env, merchant_id, merchant_secret, private_key,
     assert result.get('status') in ['REVIEW', 'PROCESSING'], f"状态异常，status={result.get('status')}"
     assert 'tradeNo' in result and result['tradeNo'], "缺少tradeNo"
     assert 'orderNo' in result and result['orderNo'], "缺少orderNo"
-    assert result.get('money', {}).get('currency') == 'PEN', f"币种错误，currency={result.get('money', {}).get('currency')}"
+    assert result.get('money', {}).get('currency') == 'VND', f"币种错误，currency={result.get('money', {}).get('currency')}"
     assert isinstance(result.get('money', {}).get('amount'), (int, float)), "金额不合法"
-    assert result.get('channel', {}).get('paymentMethod') == 'CITIBANK_PE', f"支付方式错误，paymentMethod={result.get('channel', {}).get('paymentMethod')}"
+    assert result.get('channel', {}).get('paymentMethod') == 'ABB', f"支付方式错误，paymentMethod={result.get('channel', {}).get('paymentMethod')}"
 
 
 # run
@@ -86,16 +91,13 @@ if __name__ == '__main__':
     env = 'production'
     # merchant_id = '20158'
     # merchant_secret = 'ebef0a7119b5208e84633f63dafd61110ae97e24ee4d120bb04045aa28111671'
-    # private_key = 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCEGyBGscdvb86+tKjGqVUdXv1NqVXz9H4PLdAZsdvW+rHKbr9SEFddDOi2qUiICIHyip3Y4qHKYVB4KcI5ZqknHpWh3dB32Khj4TMqM6YXe7BGaUeYoncjCBfFDDysX+a629cIFX4Fnu6VqbKkRJzRiwqQg7uhFwXhvtrHQfEGTo4Co2wC6B4MGLDEYZwDbBYRpGhLPQ9kDejuvdBLw50QY52ah3SpDC/oy9n8lT+BgL6bNod0xA6W2BuR63wwo1knz3uNDRwSReKvHtoGF58j/8oSk1cmctttWV6QIYyriynLDMRUVAst+JvgugJG6ae44MteullloPkXNdhUWCF7AgMBAAECggEAFzitc7/MTspYjS00fbdGPuNzozMg6MERZ5ml+t5IxoFKv0q4VrSIptKeFX2sQj08mmXDWVx9FBYHDxhIC87/7OBzbQCQpIBxGR184O4zQ+16DuZyr2Hfj0jc5MZB5Ar3g+Eg60rb3CETzzsFK9rjtfG66aw+TxK89fGWg3AT7gegRx35w01e1geLm0yPs1LS/aqj952jfUVdzTMMDRi7qccKoZ9QzCLcaKgFJFthIts2nq+bM2UixSVP/veQZoaLOBKXtPT6grviClebIrw0ocXOWfXwwDSL/ROu1j/0A8d9+PWoKhyIE2bZQhFoAsYEIrC86yeh6e5uqL6vMxjAAQKBgQC5pfrntQYKTA6VACm2touC89cnujOwoI46xLxPsbRF8Z2mETlLbGENiX+Xkd8p/glZJbe2FHdmKAaoQAsSyChJoH/840xRcUY4TIUkQhaNBpWxfiRynFspUb4LMpqg6sygjswj3Gt67fjC2fYJuvzNDEvE0/wKltvrmyZu4oXG2wKBgQC2KutXedBAeX9nysrZ7NI2TjW/zigOhW9vLHnUgnyoIY7CAq8sib4k9fR8c/Gx/0flmDOTcVvPUMWaVfmrlXtgoD9/6uS25uarq0ZjZwqBzeTCimHazYfHwrmjgAr1oCINffMXOqYGpsdjfrTQRqK+v1F6i1p2PVb+v1G5Z7CB4QKBgCM2r4vp01Z6rL1ohYEJyRayx9naQNm86p2NGacILwihVuTcGYEL8rDNpu0KF0lwzTcip2EbKrau2uxpEXCjlLi6f+xo9N3x3X7qTMre2kYvvI8pPSKcM9J3ldOr6pahUuUVkPUwZxavMuNK0pdv52nBblHMX99mVBqxmC2qO/PHAoGAJaTy4y3KCjjRSjqO9r/IpO4+jzdj8bRDVd8EAhVA+2GL5a22U2bXgz3MWxd+n8DYM6rjJZnsVggj/YO8x2dpiosy9BUvVFic3GbVcd8uPaq1ljoQhK2qXG5x/EaOfTmtL8qSPH+jJYa7d2UMqmmeYfqZNNCtTffZDWWt1rmFsSECgYEApRmch1TBZKNO/zfTQkE133sQXFx4MyUZEP/0i9kYUIHdCzYCfKhFBcUuuED588VMqZKApZbI7BaxSddBrr73vq4rt9kNzVnPuCHpY9Y086WLOnIPqngUgDq39gAq7awyPBvin5pdRVoXJm2iOOjJOBCP/zDfQybaIuyx6ZMISIs='
+    # private_key = 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDDUFDuFqO8Q9Dr0xmHTSNoWDG1nwX3rroX5oUdpUrP1jUTejyb4pQ6Yim9o4Fh1pbrHa1499d7tGgPycSq5uFzv9O+jkSSRbnUvM4nh+ktpvBwWPw6vTYP/8pZ88yzXzDdIO6bXN0XkcM44cCfmohkldIdg2DO+i8H15opilVqDCGFgi/peK/bOsN/Nw6VMHAacITBHfJhFqSSgJQgHCc+H1OTjN7TWmGkPBi8Alpzcl6ZWBFIMT35m5hy7OPY4In1/MnytyQG+wOYiVmSzxg5E2S9vooKANpybmLuBI0T32ZEpNevSUwySlFfFXB52QIDbaZKAy4Jc7wuNbc9o6WLAgMBAAECggEALpaLX2deEgu5G29kwP3Y6sxSuyheA4kVkZrmeL5TPIUzbtxy9ZoT0mNU4ovMUlqd8CJJnTe9GiBbzBxMQZnGAFaq+uKzn5JrM7//irVkHQQbiSjorVgxu5o/mbpKQyT7Ilv3Hm8Fu9gEkZ5j1I5HZ3rHPkv2vRg3PK8kcjExk5Q66tmwx4Trhy4UbwPVWcFkf10bHpkQPBBBtAwXqPMFnG0e91pE8EVrfvGECEDSSp/hqTKLzoeWsJcRJH0DdA8Z1WGtEXCrNOlFvm0b1s3ZBuoUS9fGCoysq3Fqz1b4dAmO19kIaUUIqkHAjNBmEftC3FbivL+RPXmWww94QbhkwQKBgQD4jyRvfr5IAbqa6Da5ltbJkIF73EAM+7gVYpeDJI2rW3Twj9yLzOcuHthdXum7cvJ/Kqn5a3SwEvNHTXgLozlKD+wUUM/dQIgVMZIgGGTWEDox8ifjJxsxo9bOt8hkNV3ENtpXpbcXSlgDW1/vWJNGU/dISI/MS8zH209bLFDdwQKBgQDJKR9OqjDL0wWnrOI11iSOEZNaa1Yh51rpSKAXQyAh3/OXAlNgc/WmMnw02HwOaOLpNz5RW44Zi6z2yCi0ZM653lPPwjfFXp/jsF/KPqOcRe5DS6YUgtbeP6SzRe9kRgL3LbfkghvM0IWUGnCevXAiMLDN4IeZLGHZ9K8iVJouSwKBgARy428PcK5vQXzGTTxzI7MF4BtsbMUOuFPBqP6S5+o6P9SSbpsd9sFPkgXRzhMp0odOJy6sqrEAFdSf4Vcr+7mEoXAXpjDKl+TxNzFV3nAqaDA+qlIZgBYaXZzjkzWf8uaxKKVK9QT4sqyUtRnelvw6QoHLsq8waCDnnvr9xxDBAoGBAJS6kcowrQlWSV0SxuG1JavgtMjqiXFhw+ataqgoWi6RjWF+N7Udp2cs9oZ/9SEWTYbO8IVoouSiT8zaarYNvobQKbl3SJLmBmNq+TfoHkGhtqsM2ItbvY/vEE/4CipiVTj6FXee9vz0w36gGdpUB/9PbrmZI8iNdv+WGJLSaHiHAoGBAKkTd+OzbkanMW8E/NLx7z+i98J4b83J5T6nf4UlJvdNTbleplIm9PxMXX+szHaglzXVX1JJeuF2JHdsW/+Z6yoZx6/Kvref6fJBYWStfLg8LxsaoY7jr/sEqIs6mRvndUEVlPKQIqj7LwokjRLepJxZKrUDryY3fT6qVl5fl6g3'
 
     merchant_id = '20190'
     merchant_secret = '8decca074fa734af3b74bf3ee2de50bdce56f715cbc7e3788b59b72d8fb4776d'
     private_key = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCbr/c44T8qWI2k6i+yZFJfFhhhnEu9Fu69g5o9UgKui8W/+18pCt9LEgSjQGgxFJe6C8X18kAXoxfstIkkSnL7q55/rXyNkymOmwpRXoO8ApgCNIlSHISKgUhaDm5pZvFvNn2u9Rsyhv9HYlf4D+e+1MkoD1dRQeefoO9nQTE5fA4uqpiKBvu7q9FJyUMI8+57ZWOddReWhLWpEkNlyDglAzdSy+wObIBx0hgKRdPWgOpuSDsSnjoAdb1+dA2PKjicAcwJOJKVAohiT70xJHnnAYFVn4w8SzkordhqV6R4XDzhnJMWr8FCPHYFvypfDKz2ZLn4pzXxVRWkPHYwlTCXAgMBAAECggEARzljYpQ5r4e/lTjGBVi8DmAvW0iDpcf+BJlWUMNaErxDBadcS4x7xv5BPOZURE/lcem88N2Y0Ld+VH3rV7zviY9j/YlCuAohMupe+AbDQZn2LNwYDoaZZDvs+7YqcPH1dil5qjbb8GuuEdw93nB4VudF95u9GKGL841OuPAsMt2FfMKnqlmbIadIp3lwgk1eTrrfykCksGS4S2lL9uixX6V2tF9zXW/fLmFIJ7xHtjgofhZsJQown2pQrNnxBibWk2lDd5fpTKooPsHp6CPBlUzTtacaCvjqV/vOgtUiql74hL2Mbq9rXCMykkmaIpLt0NbStwir/1oo3G2wuTDiMQKBgQDITFywS/sZ4vA5hz4NkzlFS0M7VoVZ3oysfPnNzyU6J2uE1+VKyTM1ncJegOScriYo238Gnbu30Jq1kY2iNFBDqveSgErkhNF8b1pdBqknRIOgHcf9Kz96L5K6Pu3gZFnWXC+qbM47cLIfk55es/LvN7kQGNH5fVaqjFfsbu2yJQKBgQDG+6mOK47vU51dMlzT/LBkeD04RL83sK6dxkCYbG8cLf+bcdlLjcXl+E/PUW6bxUIgCm+ib73mBZ3K2TAkNjA9f83mzpcpIbM3WctX/FNh27rjDu+Wswd/6tzMyuoey4EASMAmFlZyrdhJqNuuhD3SRfLK77yemAq2PmndZEOVCwKBgH5Jr1M0xOCAdqg+/j/+6GgpWP2Lws50BEwpDDPYfIdbHW6H1Tk+/Hu8uTVunTWwk7zFECUyxI3UCAec+ykfRNA1dp03KIFGwPJtHxNyRKrOhxMoU9TrNL2sSx4E2WTWwNHoE+GncqyFlLlWEM9zNCPiBVwB2jos7bzgeftHwbTFAoGBAMbwANrk7aiU3jW5DlnavrgUBpDlGpAhEtMmzJoXfxabXnwY3PjOq1Z6ZcCOV5lhI/VIucebFC6O2u1dKuZpTt2Nk1v4m+RBjx39pnE3El46AqTT3/G41/yp4UrWbC+Rok2YbpMlrhRFfoJWUhwulmhOCqmd+eRNehguWkU/4tl1AoGAOPrbWPkU7qGrA6KWJ5BspjTECflVh304nRhxTO+kprdHN0/HbEZkJrsV+igzftsM7RWwdJUqK9kkJ7YdLsFGbZFlCdcdcJ4rUjY+1IFobSKu1QG0EHlsiu26l1rc8hKxxdTC6o71d6D7KVyzE1/pFBxFa6HnB9c7wCoSi4Gq/ZA="
 
-    payment_method = "CITIBANK_PE"
-    amount = 1000
-    cash_account = "12244323243"
-    cash_account_type = "CORRIENTE"
-    receiver_req = ReceiverReq("receiver", "email@163.COM", "123232323","1232323232","DNI")
-    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account,
-                         cash_account_type,receiver_req)
+    payment_method = "ABB"
+    amount = 50000
+    cash_account = "1325768695"
+    pay_out_request_demo(env, merchant_id, merchant_secret, private_key, payment_method, amount, cash_account)

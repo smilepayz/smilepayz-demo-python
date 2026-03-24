@@ -1,0 +1,11 @@
+certifi==2025.6.15
+cffi==1.17.1
+charset-normalizer==3.4.2
+cryptography==45.0.4
+idna==3.10
+pycparser==2.22
+pycryptodome==3.23.0
+pytz==2025.2
+requests==2.32.4
+schedule==1.2.0
+urllib3==2.5.0

@@ -3,10 +3,8 @@ class Constants:
 
 
 
-    baseUrlSandbox = "https://sandbox-gateway-test.smilepayz.com"
 
-
-
+    baseUrlSandbox = "https://sandbox-gateway.smilepayz.com"
 
     baseUrl = "https://gateway-test.smilepayz.com"
 

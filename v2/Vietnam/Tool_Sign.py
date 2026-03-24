@@ -11,11 +11,11 @@ from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from datetime import datetime
 
-from v2.brazil.bean.AreaEnum import AreaEnum
-from v2.brazil.bean.AreaEnum import CurrencyEnum
-from v2.brazil.bean.MerchantReq import MerchantReq
-from v2.brazil.bean.MoneyReq import MoneyReq
-from v2.brazil.bean.TradePayInReq import TradePayInReq
+from bean.AreaEnum import AreaEnum
+from bean.AreaEnum import CurrencyEnum
+from bean.MerchantReq import MerchantReq
+from bean.MoneyReq import MoneyReq
+from bean.TradePayInReq import TradePayInReq
 
 
 def checkSha256RsaSignature(content, signature, publicKeyStr):
@@ -75,7 +75,7 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAty25nz4YxlyfmujVSskVhHwqbCn5fVBZzEZb
 merchant_secret = "6a58a603e5043290f4097ee4a7745661b3656932d4eebc3106b5dddc3af6e053"
 
 # minify demo
-money_req = MoneyReq(CurrencyEnum.BRL.name, 10000)
+money_req = MoneyReq(CurrencyEnum.IDR.name, 10000)
 merchant_req = MerchantReq("20019", None, None)
 pay_in_req = TradePayInReq("BCA", None, None, None, "order-1234566789", "minify demo",
                            None,

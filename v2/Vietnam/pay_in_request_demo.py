@@ -2,14 +2,14 @@ import json
 
 import requests
 
-from v2.thailand import Tool_Sign
-from v2.thailand.bean.AreaEnum import AreaEnum
-from v2.thailand.bean.AreaEnum import CurrencyEnum
-from v2.thailand.bean.Constants import Constants
-from v2.thailand.bean.MerchantReq import MerchantReq
-from v2.thailand.bean.MoneyReq import MoneyReq
-from v2.thailand.bean.PayerReq import PayerReq
-from v2.thailand.bean.TradePayInReq import TradePayInReq
+from v2.Vietnam import Tool_Sign
+from v2.Vietnam.bean.AreaEnum import AreaEnum
+from v2.Vietnam.bean.AreaEnum import CurrencyEnum
+from v2.Vietnam.bean.Constants import Constants
+from v2.Vietnam.bean.MerchantReq import MerchantReq
+from v2.Vietnam.bean.MoneyReq import MoneyReq
+from v2.Vietnam.bean.PayerReq import PayerReq
+from v2.Vietnam.bean.TradePayInReq import TradePayInReq
 
 
 def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payer_name,
@@ -24,7 +24,8 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
         request_path = Constants.baseUrl + "/v2.0/transaction/pay-in"
 
     # transaction time
-    timestamp = Tool_Sign.get_formatted_datetime('Asia/Bangkok')
+    # 时区越南胡志明市(Asia/Ho_Chi_Minh)
+    timestamp = Tool_Sign.get_formatted_datetime('Asia/Ho_Chi_Minh')
     print("timestamp:" + timestamp)
 
     # partner_id
@@ -32,7 +33,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     purpose = "Purpose For Transaction from python SDK"
 
     # moneyReq
-    money_req = MoneyReq(CurrencyEnum.THB.name, amount)
+    money_req = MoneyReq(CurrencyEnum.VND.name, amount)
 
     # merchantReq
     merchant_req = MerchantReq(merchant_id, "your merchant name", None)
@@ -44,7 +45,7 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
                                None,
                                None,
                                None, None, None, money_req, merchant_req, "https://www.thb.com",
-                               "https://www.thb.com")
+                               "https://www.vnd.com")
 
     # jsonStr by json then minify
     json_data_minify = json.dumps(pay_in_req, default=lambda o: o.__dict__, separators=(',', ':'))
@@ -83,10 +84,10 @@ def transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_m
     assert 'amount' in result['money'], "money字段缺少amount"
     assert abs(result['money']['amount'] - amount) < 0.01, f"金额不匹配，返回金额：{result['money']['amount']}，请求金额：{amount}"
     assert 'currency' in result['money'], "money字段缺少currency"
-    assert result['money']['currency'] == 'THB', f"币种错误，返回币种：{result['money']['currency']}"
+    assert result['money']['currency'] == 'VND', f"币种错误，返回币种：{result['money']['currency']}"
     assert 'channel' in result, "返回结果缺少channel字段"
     assert 'paymentMethod' in result['channel'], "channel字段缺少paymentMethod"
-    assert result['channel']['paymentMethod'] == 'QRPAY', f"支付方式不匹配，返回支付方式：{result['channel']['paymentMethod']}"
+    assert result['channel']['paymentMethod'] == 'VIET_QR', f"支付方式不匹配，返回支付方式：{result['channel']['paymentMethod']}"
 
 # run
 if __name__ == '__main__':
@@ -94,27 +95,10 @@ if __name__ == '__main__':
     merchant_id = '20158'
     merchant_secret = 'ebef0a7119b5208e84633f63dafd61110ae97e24ee4d120bb04045aa28111671'
     private_key = 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDDUFDuFqO8Q9Dr0xmHTSNoWDG1nwX3rroX5oUdpUrP1jUTejyb4pQ6Yim9o4Fh1pbrHa1499d7tGgPycSq5uFzv9O+jkSSRbnUvM4nh+ktpvBwWPw6vTYP/8pZ88yzXzDdIO6bXN0XkcM44cCfmohkldIdg2DO+i8H15opilVqDCGFgi/peK/bOsN/Nw6VMHAacITBHfJhFqSSgJQgHCc+H1OTjN7TWmGkPBi8Alpzcl6ZWBFIMT35m5hy7OPY4In1/MnytyQG+wOYiVmSzxg5E2S9vooKANpybmLuBI0T32ZEpNevSUwySlFfFXB52QIDbaZKAy4Jc7wuNbc9o6WLAgMBAAECggEALpaLX2deEgu5G29kwP3Y6sxSuyheA4kVkZrmeL5TPIUzbtxy9ZoT0mNU4ovMUlqd8CJJnTe9GiBbzBxMQZnGAFaq+uKzn5JrM7//irVkHQQbiSjorVgxu5o/mbpKQyT7Ilv3Hm8Fu9gEkZ5j1I5HZ3rHPkv2vRg3PK8kcjExk5Q66tmwx4Trhy4UbwPVWcFkf10bHpkQPBBBtAwXqPMFnG0e91pE8EVrfvGECEDSSp/hqTKLzoeWsJcRJH0DdA8Z1WGtEXCrNOlFvm0b1s3ZBuoUS9fGCoysq3Fqz1b4dAmO19kIaUUIqkHAjNBmEftC3FbivL+RPXmWww94QbhkwQKBgQD4jyRvfr5IAbqa6Da5ltbJkIF73EAM+7gVYpeDJI2rW3Twj9yLzOcuHthdXum7cvJ/Kqn5a3SwEvNHTXgLozlKD+wUUM/dQIgVMZIgGGTWEDox8ifjJxsxo9bOt8hkNV3ENtpXpbcXSlgDW1/vWJNGU/dISI/MS8zH209bLFDdwQKBgQDJKR9OqjDL0wWnrOI11iSOEZNaa1Yh51rpSKAXQyAh3/OXAlNgc/WmMnw02HwOaOLpNz5RW44Zi6z2yCi0ZM653lPPwjfFXp/jsF/KPqOcRe5DS6YUgtbeP6SzRe9kRgL3LbfkghvM0IWUGnCevXAiMLDN4IeZLGHZ9K8iVJouSwKBgARy428PcK5vQXzGTTxzI7MF4BtsbMUOuFPBqP6S5+o6P9SSbpsd9sFPkgXRzhMp0odOJy6sqrEAFdSf4Vcr+7mEoXAXpjDKl+TxNzFV3nAqaDA+qlIZgBYaXZzjkzWf8uaxKKVK9QT4sqyUtRnelvw6QoHLsq8waCDnnvr9xxDBAoGBAJS6kcowrQlWSV0SxuG1JavgtMjqiXFhw+ataqgoWi6RjWF+N7Udp2cs9oZ/9SEWTYbO8IVoouSiT8zaarYNvobQKbl3SJLmBmNq+TfoHkGhtqsM2ItbvY/vEE/4CipiVTj6FXee9vz0w36gGdpUB/9PbrmZI8iNdv+WGJLSaHiHAoGBAKkTd+OzbkanMW8E/NLx7z+i98J4b83J5T6nf4UlJvdNTbleplIm9PxMXX+szHaglzXVX1JJeuF2JHdsW/+Z6yoZx6/Kvref6fJBYWStfLg8LxsaoY7jr/sEqIs6mRvndUEVlPKQIqj7LwokjRLepJxZKrUDryY3fT6qVl5fl6g3'
-
-    payment_method = "QRPAY"
-    amount = 3000
+    payment_method = "VIET_QR"
+    amount = 90000
     payer_name = '123'
     payer_account = '123123123'
     payer_bank = '123123'
-
-    # payer_name = "sonia"
-    # payer_account = "123243242"
-    # payer_bank = "KBANK"
     transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payer_name, payer_account,payer_bank)
-
-    # env = 'production'
-    # merchant_id = '20011'
-    # merchant_secret = 'b3114906e3c334ffb690f3234c8083967301d5e5d9124e3671d5219235091962'
-    # private_key = 'MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC1QPfjagxUnVcTgyW727r/ms+hECiCb8UwhIlRi7Olq4ffYSlhxw2xAxEhsvJoCKaP8p1FB23PG4Xq2rctdMVNS2DOMMgNPMf4b1xWpLUhW3uQIfM+4rsJEEworYPyBNGYpGawR4wT5+9tHRWLuVwrrCcYERJylXk9aMw5wt+GtoBRYREl8e5Nb3IicZwoPX1NhewV4hOi12DahGMDT9P0lv6v97hWY3CsiNXibhVJhCZ4L+fwczQd7OV/4+vlsds3z3ndqClPz23xKlH8312dL7dX43A7CoLo2nbBgXDVK7GXsD7ghIgFINVtVyHhVhGyrhfKTU3//GzzawZctuuNAgMBAAECggEAUfvyhENmE2ndxp4mFbx0b4RLURt5b1J2G5V/dUqe9htJyJDuwmLifwQXnioOel8bU/YWC/Cpyym0X8ARZfaw/d7QCUPIYTBydR2N40T6Bv4VvGKW34V3u0hLYoTlrzVdxtDp/+dE5YYd5rlmkv5DQh/KyRiDwx94KP47jg7mw0wLg+D+tNZOeyQm5VHrPnOO4JVOcnSc1Ul0sG30xcpYFCR0mZK47TKyn7l+GYf23jEWXSSzUgHK7wGx53pKgNJ/hllznBn7EjzdAoy3faqulHhbTPKSmxolYvg7hrRUzCQ1RHQw7EwecDU53vsT5BE1GS6RFrSjlyRxgm/EmOZnwwKBgQDbkjLPUWQM9E1stthF77rEjkQowRP32huAGvYp1Vx7BgIyUPEsn65Oh7MyFKUeeLl3wgvIt6J5u3qvNAlO6i38pp/VGdV//UiYxmBeIG5YiWb7U85TomBWwbxTY+GxwlK004P2o2CvYKqPIU+QN7fZ5P4JTfzPn5LKJkas+i/ofwKBgQDTU1N9hx2QBP3afKTFL25/a57QsFdnoVn3zHKiUNoO4PUthoTzRKWmkGK/pENFkMcwUWS6Vbtb4PHM7XCOIK4Q5hhUyXCXCcTx1b+nYuowVnnRFKs+OAw73obz6n62vXsqyBb5WXYWuTeUyHliJXK8CKyYdb6sR1MsKV4HRu1F8wKBgDAdPEcTxcHU8vZkpsXEf3+80RDBJngEckxDHDgUifxnV6ng9MhbgV2x/MF3pqsjtziX6+8i1laoj3y/AV8qj8MyXAndbFxsizD3H3zgzG1YRpnCRo8rIMNCFtuLIpTKSUdYpi0wpeooW5ebrAylOQNlW4l8bm6swATOGGSlOkRPAoGARW1bwaLRUI6DQ/OtQmcZ21zlGVTF8nLtFt8hTjhX24mGo0VNioqkDXvkJWf2/fTZrAMhn6Io4r+dUSE02EzeQwkFN13S0pxQCs+Znol9vRG8BbfPpqpNQqISHjKNHMZVn7GK8rK0fDSvkP7n+hmpfyMuaQxN71Wjep/Al41yyIcCgYAzZfUMgODQsxgohqtFB8q70wsNsIvvqwhBm9r+s6kKdlgGjLNuG7EcLiQ3wdCN0wVbHvMZ0DTwRTqZKJqhF+IqyCjf8b/SvESiooAG5jt16OxDsVVjwlpLS7Q6N5IIoprzDgqWYZ7tWo+pwhxS4T9hPxVLfeMZ837KB+Cfk2ebrA=='
-    # payment_method = "QRPAY"
-    # # amount = 2000
-    # # payer_name = "CY"
-    # # payer_account = "0111124787"
-    # # payer_bank = "KBANK"
-    # transaction_pay_in(env, merchant_id, merchant_secret, private_key, payment_method, amount, payer_name,
-    #                    payer_account, payer_bank)
 
